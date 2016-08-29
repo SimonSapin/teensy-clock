@@ -11,3 +11,6 @@ cat:
 
 timestamp:
 	date +@%s > $(SERIAL_DEVICE)
+
+clean:
+	git clean -Xf
