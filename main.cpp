@@ -26,6 +26,12 @@ uint32_t read_int(uint8_t separator = '\n') {
 
 const int SPI_CHIP_SELECT = 6;
 
+volatile bool ticked = false;
+
+void tick() {
+    ticked = true;
+}
+
 extern "C" int main(void) {
     pinMode(13, OUTPUT);
     digitalWriteFast(13, HIGH);
@@ -37,8 +43,9 @@ extern "C" int main(void) {
     Adafruit_7segment display;
     display.begin(0x70);
     display.setBrightness(3);
-    int i = 1234;
-    int j = 100;
+
+    pinMode(10, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(10), tick, RISING);
 
     pinMode(SPI_CHIP_SELECT, OUTPUT);
     SPI.setMOSI(7);
@@ -50,14 +57,14 @@ extern "C" int main(void) {
     //set control register
     digitalWrite(SPI_CHIP_SELECT, LOW);
     SPI.transfer(0x8E);
-    SPI.transfer(0x60); //60= disable Osciallator and Battery SQ wave @1hz, temp compensation, Alarms disabled
+    SPI.transfer(0x20);
     digitalWrite(SPI_CHIP_SELECT, HIGH);
     delay(10);
     int TimeDate [7]; //second,minute,hour,null,day,month,year
 
     while (1) {
-        if (j == 100000) {
-            j = 0;
+        if (ticked) {
+            ticked = false;
 
             for(int i=0; i<=6;i++){
                 if(i==3)
@@ -96,10 +103,7 @@ extern "C" int main(void) {
             display.print(TimeDate[0] + TimeDate[1] * 100 , DEC);
             display.drawColon(true);
             display.writeDisplay();
-            i++;
-            i %= 10000;
         }
-        j++;
 
         if (Serial.available()) {
             uint8_t byte;
