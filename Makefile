@@ -7,7 +7,7 @@ hex:
 	@make --no-print-directory -C teensy3 NO_ARDUINO=1
 
 cat:
-	while sleep 1; do cat $(SERIAL_DEVICE); done
+	while sleep 1; do [ -e $(SERIAL_DEVICE) ] && cat $(SERIAL_DEVICE); done
 
 timestamp:
 	date +@%s > $(SERIAL_DEVICE)
