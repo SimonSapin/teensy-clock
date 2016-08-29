@@ -84,8 +84,8 @@ SIZE = $(COMPILERPATH)/arm-none-eabi-size
 
 # automatically create lists of the sources and objects
 # TODO: this does not handle Arduino libraries yet...
-C_FILES := $(wildcard *.c)
-CPP_FILES := $(wildcard *.cpp) ../main.cpp
+C_FILES := $(wildcard *.c) $(wildcard ../adafruit/*.c)
+CPP_FILES := $(wildcard *.cpp) $(wildcard ../adafruit/*.cpp) ../main.cpp
 OBJS := $(C_FILES:.c=.o) $(CPP_FILES:.cpp=.o)
 
 
