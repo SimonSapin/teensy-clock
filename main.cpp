@@ -1,13 +1,14 @@
 #include "WProgram.h"
 #define SERIAL_HEX HEX
 #include "Adafruit_LEDBackpack.h"
+#include "SPI.h"
 
 uint8_t read_byte() {
     while (!Serial.available()) {}
     return Serial.read();
 }
 
-uint32_t read_int() {
+uint32_t read_int(uint8_t separator = '\n') {
     uint8_t byte;
     uint32_t result = 0;
     for (;;) {
@@ -15,7 +16,7 @@ uint32_t read_int() {
         if (byte >= '0' && byte <= '9') {
             result *= 10;
             result += byte - '0';
-        } else if (byte == '\n') {
+        } else if (byte == separator) {
             return result;
         } else {
             return 0;
@@ -23,22 +24,76 @@ uint32_t read_int() {
     }
 }
 
+const int SPI_CHIP_SELECT = 6;
+
 extern "C" int main(void) {
     pinMode(13, OUTPUT);
     digitalWriteFast(13, HIGH);
     delay(100);
     digitalWriteFast(13, LOW);
 
+    Serial.begin(9600);
+
     Adafruit_7segment display;
     display.begin(0x70);
     display.setBrightness(3);
-    Serial.begin(9600);
     int i = 1234;
     int j = 100;
+
+    pinMode(SPI_CHIP_SELECT, OUTPUT);
+    SPI.setMOSI(7);
+    SPI.setMISO(8);
+    SPI.setSCK(14);
+    SPI.begin();
+    SPI.setBitOrder(MSBFIRST);
+    SPI.setDataMode(SPI_MODE1); // both mode 1 & 3 should work
+    //set control register
+    digitalWrite(SPI_CHIP_SELECT, LOW);
+    SPI.transfer(0x8E);
+    SPI.transfer(0x60); //60= disable Osciallator and Battery SQ wave @1hz, temp compensation, Alarms disabled
+    digitalWrite(SPI_CHIP_SELECT, HIGH);
+    delay(10);
+    int TimeDate [7]; //second,minute,hour,null,day,month,year
+
     while (1) {
         if (j == 100000) {
             j = 0;
-            display.print(i , DEC);
+
+            for(int i=0; i<=6;i++){
+                if(i==3)
+                    i++;
+                digitalWrite(SPI_CHIP_SELECT, LOW);
+                SPI.transfer(i+0x00);
+                unsigned int n = SPI.transfer(0x00);
+                digitalWrite(SPI_CHIP_SELECT, HIGH);
+                int a=n & B00001111;
+                if(i==2){
+                    int b=(n & B00110000)>>4; //24 hour mode
+                    if(b==B00000010)
+                        b=20;
+                    else if(b==B00000001)
+                        b=10;
+                    TimeDate[i]=a+b;
+                }
+                else if(i==4){
+                    int b=(n & B00110000)>>4;
+                    TimeDate[i]=a+b*10;
+                }
+                else if(i==5){
+                    int b=(n & B00010000)>>4;
+                    TimeDate[i]=a+b*10;
+                }
+                else if(i==6){
+                    int b=(n & B11110000)>>4;
+                    TimeDate[i]=a+b*10;
+                }
+                else{
+                    int b=(n & B01110000)>>4;
+                    TimeDate[i]=a+b*10;
+                }
+            }
+
+            display.print(TimeDate[0] + TimeDate[1] * 100 , DEC);
             display.drawColon(true);
             display.writeDisplay();
             i++;
@@ -52,6 +107,47 @@ extern "C" int main(void) {
             if (byte == '@') {
                 Serial.print("Got integer: ");
                 Serial.println(read_int());
+            } else if (byte == 'g') {  // get
+                Serial.print("Current RTC datetime: ");
+                Serial.print(TimeDate[6]);
+                Serial.print("-");
+                Serial.print(TimeDate[5]);
+                Serial.print("-");
+                Serial.print(TimeDate[4]);
+                Serial.print(" ");
+
+                Serial.print(TimeDate[2]);
+                Serial.print(":");
+                Serial.print(TimeDate[1]);
+                Serial.print(":");
+                Serial.println(TimeDate[0]);
+            } else if (byte == 's') {  // set
+                TimeDate[6] = read_int('-') % 100;
+                TimeDate[5] = read_int('-');
+                TimeDate[4] = read_int(' ');
+
+                TimeDate[2] = read_int(':');
+                TimeDate[1] = read_int(':');
+                TimeDate[0] = read_int('\n');
+
+                for(int i=0; i<=6;i++){
+                    if(i==3)
+                        i++;
+                    int b= TimeDate[i]/10;
+                    int a= TimeDate[i]-b*10;
+                    if(i==2){
+                        if (b==2)
+                            b=B00000010;
+                        else if (b==1)
+                            b=B00000001;
+                    }
+                    TimeDate[i]= a+(b<<4);
+
+                    digitalWrite(SPI_CHIP_SELECT, LOW);
+                    SPI.transfer(i+0x80);
+                    SPI.transfer(TimeDate[i]);
+                    digitalWrite(SPI_CHIP_SELECT, HIGH);
+                }
             }
         }
     }

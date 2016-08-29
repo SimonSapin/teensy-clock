@@ -9,8 +9,8 @@ hex:
 cat:
 	while sleep 1; do [ -e $(SERIAL_DEVICE) ] && cat $(SERIAL_DEVICE); done
 
-timestamp:
-	date +@%s > $(SERIAL_DEVICE)
+sync:
+	date --utc '+s%Y-%m-%d %H:%M:%S' > $(SERIAL_DEVICE)
 
 clean:
 	git clean -Xf
