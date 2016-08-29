@@ -12,7 +12,7 @@ void srandom(uint32_t newseed)
 	seed = newseed;
 }
 
-uint32_t random(void)
+long random(void)
 {
 	int32_t hi, lo, x;
 
@@ -27,13 +27,13 @@ uint32_t random(void)
 	return x;
 }
 
-uint32_t random(uint32_t howbig)
+long random(uint32_t howbig)
 {
 	if (howbig == 0) return 0;
 	return random() % howbig;
 }
 
-int32_t random(int32_t howsmall, int32_t howbig)
+long random(int32_t howsmall, int32_t howbig)
 {
 	if (howsmall >= howbig) return howsmall;
 	int32_t diff = howbig - howsmall;
