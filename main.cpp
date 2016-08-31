@@ -26,7 +26,7 @@ uint32_t read_int(uint8_t separator = '\n') {
 
 const int SPI_CHIP_SELECT = 6;
 
-volatile bool ticked = false;
+volatile bool ticked = true;
 
 void tick() {
     ticked = true;
@@ -34,9 +34,6 @@ void tick() {
 
 extern "C" int main(void) {
     pinMode(13, OUTPUT);
-    digitalWriteFast(13, HIGH);
-    delay(100);
-    digitalWriteFast(13, LOW);
 
     Serial.begin(9600);
 
@@ -60,8 +57,8 @@ extern "C" int main(void) {
     SPI.transfer(0x20);
     digitalWrite(SPI_CHIP_SELECT, HIGH);
     delay(10);
-    int TimeDate [7]; //second,minute,hour,null,day,month,year
 
+    int TimeDate [7]; //second,minute,hour,null,day,month,year
     while (1) {
         if (ticked) {
             ticked = false;
@@ -103,6 +100,10 @@ extern "C" int main(void) {
             display.print(TimeDate[0] + TimeDate[1] * 100 , DEC);
             display.drawColon(true);
             display.writeDisplay();
+
+            digitalWriteFast(13, HIGH);
+            delay(10);
+            digitalWriteFast(13, LOW);
         }
 
         if (Serial.available()) {
