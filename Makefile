@@ -3,8 +3,11 @@ SERIAL_DEVICE = /dev/ttyACM0
 flash: hex
 	teensy-loader-cli -w -s --mcu=mk20dx256 teensy3/main.hex
 
-hex:
+hex: rust
 	@make --quiet -C teensy3 NO_ARDUINO=1
+
+rust:
+	cargo build --release
 
 cat:
 	while true; do [ -r $(SERIAL_DEVICE) ] && cat $(SERIAL_DEVICE); inotifywait -qq -e create -e attrib /dev; done

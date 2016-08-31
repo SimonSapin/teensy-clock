@@ -73,7 +73,7 @@ CFLAGS =
 LDFLAGS = -Os -Wl,--gc-sections,--defsym=__rtc_localtime=0 --specs=nano.specs -mcpu=cortex-m4 -mthumb -T$(MCU_LD)
 
 # additional libraries to link
-LIBS = -lm
+LIBS = -lm ../target/thumbv7em-none-eabi/release/libclock.a
 
 
 # names for the compiler programs
