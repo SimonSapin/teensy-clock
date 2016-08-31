@@ -3,20 +3,8 @@
 #include "Adafruit_LEDBackpack.h"
 #include "SPI.h"
 
-uint32_t read_int(uint8_t separator = '\n') {
-    uint8_t byte;
-    uint32_t result = 0;
-    for (;;) {
-        byte = Serial.read();
-        if (byte >= '0' && byte <= '9') {
-            result *= 10;
-            result += byte - '0';
-        } else if (byte == separator) {
-            return result;
-        } else {
-            return 0;
-        }
-    }
+extern "C" {
+    uint32_t read_int(uint8_t separator);
 }
 
 const int SPI_CHIP_SELECT = 6;
@@ -106,7 +94,7 @@ extern "C" int main(void) {
             byte = Serial.read();
             if (byte == '@') {
                 Serial.print("Got integer: ");
-                Serial.println(read_int());
+                Serial.println(read_int('\n'));
             } else if (byte == 'g') {  // get
                 Serial.print("Current RTC datetime: ");
                 Serial.print(TimeDate[6]);
