@@ -3,16 +3,11 @@
 #include "Adafruit_LEDBackpack.h"
 #include "SPI.h"
 
-uint8_t read_byte() {
-    while (!Serial.available()) {}
-    return Serial.read();
-}
-
 uint32_t read_int(uint8_t separator = '\n') {
     uint8_t byte;
     uint32_t result = 0;
     for (;;) {
-        byte = read_byte();
+        byte = Serial.read();
         if (byte >= '0' && byte <= '9') {
             result *= 10;
             result += byte - '0';
@@ -58,7 +53,7 @@ extern "C" int main(void) {
     digitalWrite(SPI_CHIP_SELECT, HIGH);
     delay(10);
 
-    int TimeDate [7]; //second,minute,hour,null,day,month,year
+    uint32_t TimeDate [7]; //second,minute,hour,null,day,month,year
     while (1) {
         if (ticked) {
             ticked = false;
@@ -108,7 +103,7 @@ extern "C" int main(void) {
 
         if (Serial.available()) {
             uint8_t byte;
-            byte = read_byte();
+            byte = Serial.read();
             if (byte == '@') {
                 Serial.print("Got integer: ");
                 Serial.println(read_int());
