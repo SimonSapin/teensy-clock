@@ -1,9 +1,6 @@
+use bindings;
 use core::fmt;
 
-extern {
-    fn usb_serial_getchar() -> i32;
-    fn usb_serial_write(ptr: *const u8, len: u32);
-}
 
 #[derive(Copy, Clone)]
 pub struct Serial;
@@ -14,7 +11,7 @@ impl Serial {
     }
 
     pub fn try_read_byte(self) -> Result<u8, &'static str> {
-        match unsafe { usb_serial_getchar() } {
+        match unsafe { bindings::usb_serial_getchar() } {
             -1 => Err("usb_serial_getchar returned -1"),
             byte => Ok(byte as u8)
         }
@@ -33,17 +30,20 @@ impl Serial {
         }
     }
 
-    pub fn write_bytes(self, bytes: &[u8]) {
+    pub fn write_bytes(self, bytes: &[u8]) -> Result<(), ()> {
         unsafe {
-            usb_serial_write(bytes.as_ptr(), bytes.len() as u32)
+            if bindings::usb_serial_write(bytes.as_ptr() as *const _, bytes.len() as u32) >= 0 {
+                Ok(())
+            } else {
+                Err(())
+            }
         }
     }
 }
 
 impl fmt::Write for Serial {
     fn write_str(&mut self, s: &str) -> fmt::Result {
-        self.write_bytes(s.as_bytes());
-        Ok(())
+        self.write_bytes(s.as_bytes()).map_err(|_| fmt::Error)
     }
 }
 
