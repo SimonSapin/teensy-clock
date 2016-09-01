@@ -1,8 +1,12 @@
 #![feature(lang_items)]
 #![no_std]
 
+#[allow(dead_code, non_snake_case, non_camel_case_types, non_upper_case_globals, improper_ctypes)]
 mod bindings;
-#[macro_use] mod serial;
+
+#[macro_use]
+mod serial;
+
 use serial::Serial;
 
 #[no_mangle]
@@ -14,6 +18,7 @@ pub extern fn read_int(delimiter: u8) -> u32 {
 mod std {
     pub use core::*;
     pub mod os {
+        #[allow(non_camel_case_types, dead_code)]
         pub mod raw {
             pub enum c_void {}
             pub type c_uchar = u8;
