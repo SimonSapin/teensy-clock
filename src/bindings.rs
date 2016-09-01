@@ -1183,7 +1183,7 @@ pub type prog_int64_t = i64;
 pub type prog_uint64_t = u64;
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
-pub enum Enum_IRQ_NUMBER_t {
+pub enum IRQ_NUMBER_t {
     IRQ_DMA_CH0 = 0,
     IRQ_DMA_CH1 = 1,
     IRQ_DMA_CH2 = 2,
@@ -1256,7 +1256,7 @@ pub enum Enum_IRQ_NUMBER_t {
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_kinetis_h_unnamed_1 {
+pub struct kinetis_h_unnamed_1 {
     pub C1: u8,
     pub C2: u8,
     pub C3: u8,
@@ -1278,18 +1278,18 @@ pub struct Struct_kinetis_h_unnamed_1 {
     pub S2: u8,
     pub T3: u8,
 }
-impl ::std::clone::Clone for Struct_kinetis_h_unnamed_1 {
+impl ::std::clone::Clone for kinetis_h_unnamed_1 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_kinetis_h_unnamed_1() {
-    assert_eq!(::std::mem::size_of::<Struct_kinetis_h_unnamed_1>() , 20usize);
-    assert_eq!(::std::mem::align_of::<Struct_kinetis_h_unnamed_1>() , 1usize);
+fn bindgen_test_layout_kinetis_h_unnamed_1() {
+    assert_eq!(::std::mem::size_of::<kinetis_h_unnamed_1>() , 20usize);
+    assert_eq!(::std::mem::align_of::<kinetis_h_unnamed_1>() , 1usize);
 }
-pub type KINETIS_MCG_t = Struct_kinetis_h_unnamed_1;
+pub type KINETIS_MCG_t = kinetis_h_unnamed_1;
 #[repr(C)]
 #[derive(Debug)]
-pub struct Struct_kinetis_h_unnamed_2 {
+pub struct kinetis_h_unnamed_2 {
     pub MCR: u32,
     pub unused1: u32,
     pub TCR: u32,
@@ -1309,15 +1309,14 @@ pub struct Struct_kinetis_h_unnamed_2 {
     pub RXFR: [u32; 16usize],
 }
 #[test]
-fn bindgen_test_layout_Struct_kinetis_h_unnamed_2() {
-    assert_eq!(::std::mem::size_of::<Struct_kinetis_h_unnamed_2>() ,
-               188usize);
-    assert_eq!(::std::mem::align_of::<Struct_kinetis_h_unnamed_2>() , 4usize);
+fn bindgen_test_layout_kinetis_h_unnamed_2() {
+    assert_eq!(::std::mem::size_of::<kinetis_h_unnamed_2>() , 188usize);
+    assert_eq!(::std::mem::align_of::<kinetis_h_unnamed_2>() , 4usize);
 }
-pub type KINETISK_SPI_t = Struct_kinetis_h_unnamed_2;
+pub type KINETISK_SPI_t = kinetis_h_unnamed_2;
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_kinetis_h_unnamed_3 {
+pub struct kinetis_h_unnamed_3 {
     pub A1: u8,
     pub F: u8,
     pub C1: u8,
@@ -1331,18 +1330,18 @@ pub struct Struct_kinetis_h_unnamed_3 {
     pub SLTH: u8,
     pub SLTL: u8,
 }
-impl ::std::clone::Clone for Struct_kinetis_h_unnamed_3 {
+impl ::std::clone::Clone for kinetis_h_unnamed_3 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_kinetis_h_unnamed_3() {
-    assert_eq!(::std::mem::size_of::<Struct_kinetis_h_unnamed_3>() , 12usize);
-    assert_eq!(::std::mem::align_of::<Struct_kinetis_h_unnamed_3>() , 1usize);
+fn bindgen_test_layout_kinetis_h_unnamed_3() {
+    assert_eq!(::std::mem::size_of::<kinetis_h_unnamed_3>() , 12usize);
+    assert_eq!(::std::mem::align_of::<kinetis_h_unnamed_3>() , 1usize);
 }
-pub type KINETIS_I2C_t = Struct_kinetis_h_unnamed_3;
+pub type KINETIS_I2C_t = kinetis_h_unnamed_3;
 #[repr(C, packed)]
 #[derive(Debug, Copy)]
-pub struct Struct_kinetis_h_unnamed_4 {
+pub struct kinetis_h_unnamed_4 {
     pub BDH: u8,
     pub BDL: u8,
     pub C1: u8,
@@ -1370,7 +1369,7 @@ pub struct Struct_kinetis_h_unnamed_4 {
     pub C7816: u8,
     pub IE7816: u8,
     pub IS7816: u8,
-    pub kinetis_h_unnamed_4_kinetis_h_unnamed_5: Union_kinetis_h_unnamed_4_kinetis_h_unnamed_5,
+    pub kinetis_h_unnamed_4_kinetis_h_unnamed_5: kinetis_h_unnamed_4_kinetis_h_unnamed_5,
     pub WN7816: u8,
     pub WF7816: u8,
     pub ET7816: u8,
@@ -1396,12 +1395,12 @@ pub struct Struct_kinetis_h_unnamed_4 {
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Union_kinetis_h_unnamed_4_kinetis_h_unnamed_5 {
+pub struct kinetis_h_unnamed_4_kinetis_h_unnamed_5 {
     pub WP7816T0: __BindgenUnionField<u8>,
     pub WP7816T1: __BindgenUnionField<u8>,
     pub _bindgen_data_: u8,
 }
-impl Union_kinetis_h_unnamed_4_kinetis_h_unnamed_5 {
+impl kinetis_h_unnamed_4_kinetis_h_unnamed_5 {
     pub unsafe fn WP7816T0(&mut self) -> *mut u8 {
         let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
         ::std::mem::transmute(raw.offset(0))
@@ -1411,29 +1410,29 @@ impl Union_kinetis_h_unnamed_4_kinetis_h_unnamed_5 {
         ::std::mem::transmute(raw.offset(0))
     }
 }
-impl ::std::clone::Clone for Union_kinetis_h_unnamed_4_kinetis_h_unnamed_5 {
+impl ::std::clone::Clone for kinetis_h_unnamed_4_kinetis_h_unnamed_5 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Union_kinetis_h_unnamed_4_kinetis_h_unnamed_5() {
-    assert_eq!(::std::mem::size_of::<Union_kinetis_h_unnamed_4_kinetis_h_unnamed_5>()
+fn bindgen_test_layout_kinetis_h_unnamed_4_kinetis_h_unnamed_5() {
+    assert_eq!(::std::mem::size_of::<kinetis_h_unnamed_4_kinetis_h_unnamed_5>()
                , 1usize);
-    assert_eq!(::std::mem::align_of::<Union_kinetis_h_unnamed_4_kinetis_h_unnamed_5>()
+    assert_eq!(::std::mem::align_of::<kinetis_h_unnamed_4_kinetis_h_unnamed_5>()
                , 1usize);
 }
-impl ::std::clone::Clone for Struct_kinetis_h_unnamed_4 {
+impl ::std::clone::Clone for kinetis_h_unnamed_4 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_kinetis_h_unnamed_4() {
-    assert_eq!(::std::mem::size_of::<Struct_kinetis_h_unnamed_4>() , 50usize);
-    assert_eq!(::std::mem::align_of::<Struct_kinetis_h_unnamed_4>() , 1usize);
+fn bindgen_test_layout_kinetis_h_unnamed_4() {
+    assert_eq!(::std::mem::size_of::<kinetis_h_unnamed_4>() , 50usize);
+    assert_eq!(::std::mem::align_of::<kinetis_h_unnamed_4>() , 1usize);
 }
-pub type KINETISK_UART_t = Struct_kinetis_h_unnamed_4;
+pub type KINETISK_UART_t = kinetis_h_unnamed_4;
 ///////////////////////////////////
 #[repr(C, packed)]
 #[derive(Debug, Copy)]
-pub struct Struct_kinetis_h_unnamed_6 {
+pub struct kinetis_h_unnamed_6 {
     pub BAUD: u32,
     pub STAT: u32,
     pub CTRL: u32,
@@ -1441,36 +1440,35 @@ pub struct Struct_kinetis_h_unnamed_6 {
     pub MATCH: u32,
     pub MODIR: u32,
 }
-impl ::std::clone::Clone for Struct_kinetis_h_unnamed_6 {
+impl ::std::clone::Clone for kinetis_h_unnamed_6 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_kinetis_h_unnamed_6() {
-    assert_eq!(::std::mem::size_of::<Struct_kinetis_h_unnamed_6>() , 24usize);
-    assert_eq!(::std::mem::align_of::<Struct_kinetis_h_unnamed_6>() , 1usize);
+fn bindgen_test_layout_kinetis_h_unnamed_6() {
+    assert_eq!(::std::mem::size_of::<kinetis_h_unnamed_6>() , 24usize);
+    assert_eq!(::std::mem::align_of::<kinetis_h_unnamed_6>() , 1usize);
 }
-pub type KINETISK_LPUART_t = Struct_kinetis_h_unnamed_6;
+pub type KINETISK_LPUART_t = kinetis_h_unnamed_6;
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_digital_pin_bitband_and_config_table_struct {
+pub struct digital_pin_bitband_and_config_table_struct {
     pub reg: *mut u32,
     pub config: *mut u32,
 }
-impl ::std::clone::Clone for
- Struct_digital_pin_bitband_and_config_table_struct {
+impl ::std::clone::Clone for digital_pin_bitband_and_config_table_struct {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_digital_pin_bitband_and_config_table_struct() {
-    assert_eq!(::std::mem::size_of::<Struct_digital_pin_bitband_and_config_table_struct>()
+fn bindgen_test_layout_digital_pin_bitband_and_config_table_struct() {
+    assert_eq!(::std::mem::size_of::<digital_pin_bitband_and_config_table_struct>()
                , 8usize);
-    assert_eq!(::std::mem::align_of::<Struct_digital_pin_bitband_and_config_table_struct>()
+    assert_eq!(::std::mem::align_of::<digital_pin_bitband_and_config_table_struct>()
                , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_teensy3_clock_class;
-impl ::std::clone::Clone for Struct_teensy3_clock_class {
+pub struct teensy3_clock_class;
+impl ::std::clone::Clone for teensy3_clock_class {
     fn clone(&self) -> Self { *self }
 }
 extern "C" {
@@ -1478,7 +1476,7 @@ extern "C" {
     fn _ZN19teensy3_clock_class3setEm(t: ::std::os::raw::c_ulong);
     fn _ZN19teensy3_clock_class10compensateEi(adj: ::std::os::raw::c_int);
 }
-impl Struct_teensy3_clock_class {
+impl teensy3_clock_class {
     #[inline]
     pub unsafe fn get() -> ::std::os::raw::c_ulong {
         _ZN19teensy3_clock_class3getEv()
@@ -1495,19 +1493,19 @@ impl Struct_teensy3_clock_class {
 pub type word = ::std::os::raw::c_uint;
 pub type byte = u8;
 pub type boolean = bool;
-pub enum Struct___FlashStringHelper { }
+pub enum __FlashStringHelper { }
 #[repr(C)]
 #[derive(Debug)]
-pub struct Struct_String {
+pub struct String {
     pub buffer: *mut ::std::os::raw::c_uchar,
     pub capacity: ::std::os::raw::c_uint,
     pub len: ::std::os::raw::c_uint,
     pub flags: ::std::os::raw::c_uchar,
 }
 #[test]
-fn bindgen_test_layout_Struct_String() {
-    assert_eq!(::std::mem::size_of::<Struct_String>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_String>() , 4usize);
+fn bindgen_test_layout_String() {
+    assert_eq!(::std::mem::size_of::<String>() , 16usize);
+    assert_eq!(::std::mem::align_of::<String>() , 4usize);
 }
 extern "C" {
     fn _ZN6String7reserveEj(this: *mut String, size: ::std::os::raw::c_uint)
@@ -1515,78 +1513,72 @@ extern "C" {
     fn _ZNK6String6lengthEv(this: *mut String) -> ::std::os::raw::c_uint;
     fn _ZN6String4copyEPKcj(this: *mut String,
                             cstr: *const ::std::os::raw::c_uchar,
-                            length: ::std::os::raw::c_uint)
-     -> *mut Struct_String;
+                            length: ::std::os::raw::c_uint) -> *mut String;
     fn _ZN6String4copyEPK19__FlashStringHelper(this: *mut String,
-                                               s:
-                                                   *const Struct___FlashStringHelper)
-     -> *mut Struct_String;
-    fn _ZN6String4moveERS_(this: *mut String, rhs: *mut Struct_String);
-    fn _ZN6String6appendERKS_(this: *mut String, str: *const Struct_String)
-     -> *mut Struct_String;
+                                               s: *const __FlashStringHelper)
+     -> *mut String;
+    fn _ZN6String4moveERS_(this: *mut String, rhs: *mut String);
+    fn _ZN6String6appendERKS_(this: *mut String, str: *const String)
+     -> *mut String;
     fn _ZN6String6appendEPKc(this: *mut String,
                              cstr: *const ::std::os::raw::c_uchar)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6appendEPK19__FlashStringHelper(this: *mut String,
                                                  s:
-                                                     *const Struct___FlashStringHelper)
-     -> *mut Struct_String;
+                                                     *const __FlashStringHelper)
+     -> *mut String;
     fn _ZN6String6appendEc(this: *mut String, c: ::std::os::raw::c_uchar)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6appendEh(this: *mut String, c: ::std::os::raw::c_uchar)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6appendEi(this: *mut String, num: ::std::os::raw::c_int)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6appendEj(this: *mut String, num: ::std::os::raw::c_uint)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6appendEl(this: *mut String, num: ::std::os::raw::c_long)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6appendEm(this: *mut String, num: ::std::os::raw::c_ulong)
-     -> *mut Struct_String;
-    fn _ZN6String6appendEf(this: *mut String, num: f32) -> *mut Struct_String;
-    fn _ZN6String6appendEd(this: *mut String, num: f64) -> *mut Struct_String;
-    fn _ZN6String6concatERKS_(this: *mut String, str: *const Struct_String)
-     -> *mut Struct_String;
+     -> *mut String;
+    fn _ZN6String6appendEf(this: *mut String, num: f32) -> *mut String;
+    fn _ZN6String6appendEd(this: *mut String, num: f64) -> *mut String;
+    fn _ZN6String6concatERKS_(this: *mut String, str: *const String)
+     -> *mut String;
     fn _ZN6String6concatEPKc(this: *mut String,
                              cstr: *const ::std::os::raw::c_uchar)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6concatEPK19__FlashStringHelper(this: *mut String,
                                                  pgmstr:
-                                                     *const Struct___FlashStringHelper)
-     -> *mut Struct_String;
+                                                     *const __FlashStringHelper)
+     -> *mut String;
     fn _ZN6String6concatEc(this: *mut String, c: ::std::os::raw::c_uchar)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6concatEh(this: *mut String, c: ::std::os::raw::c_uchar)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6concatEi(this: *mut String, num: ::std::os::raw::c_int)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6concatEj(this: *mut String, num: ::std::os::raw::c_uint)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6concatEl(this: *mut String, num: ::std::os::raw::c_long)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6concatEm(this: *mut String, num: ::std::os::raw::c_ulong)
-     -> *mut Struct_String;
-    fn _ZN6String6concatEf(this: *mut String, num: f32) -> *mut Struct_String;
-    fn _ZN6String6concatEd(this: *mut String, num: f64) -> *mut Struct_String;
-    fn _ZNK6String9compareToERKS_(this: *mut String, s: *const Struct_String)
+     -> *mut String;
+    fn _ZN6String6concatEf(this: *mut String, num: f32) -> *mut String;
+    fn _ZN6String6concatEd(this: *mut String, num: f64) -> *mut String;
+    fn _ZNK6String9compareToERKS_(this: *mut String, s: *const String)
      -> ::std::os::raw::c_int;
-    fn _ZNK6String6equalsERKS_(this: *mut String, s: *const Struct_String)
+    fn _ZNK6String6equalsERKS_(this: *mut String, s: *const String)
      -> ::std::os::raw::c_uchar;
     fn _ZNK6String6equalsEPKc(this: *mut String,
                               cstr: *const ::std::os::raw::c_uchar)
      -> ::std::os::raw::c_uchar;
-    fn _ZNK6String16equalsIgnoreCaseERKS_(this: *mut String,
-                                          s: *const Struct_String)
+    fn _ZNK6String16equalsIgnoreCaseERKS_(this: *mut String, s: *const String)
      -> ::std::os::raw::c_uchar;
-    fn _ZNK6String10startsWithERKS_(this: *mut String,
-                                    prefix: *const Struct_String)
+    fn _ZNK6String10startsWithERKS_(this: *mut String, prefix: *const String)
      -> ::std::os::raw::c_uchar;
-    fn _ZNK6String10startsWithERKS_j(this: *mut String,
-                                     prefix: *const Struct_String,
+    fn _ZNK6String10startsWithERKS_j(this: *mut String, prefix: *const String,
                                      offset: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_uchar;
-    fn _ZNK6String8endsWithERKS_(this: *mut String,
-                                 suffix: *const Struct_String)
+    fn _ZNK6String8endsWithERKS_(this: *mut String, suffix: *const String)
      -> ::std::os::raw::c_uchar;
     fn _ZNK6String6charAtEj(this: *mut String, index: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_uchar;
@@ -1608,9 +1600,9 @@ extern "C" {
     fn _ZNK6String7indexOfEcj(this: *mut String, ch: ::std::os::raw::c_uchar,
                               fromIndex: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_int;
-    fn _ZNK6String7indexOfERKS_(this: *mut String, str: *const Struct_String)
+    fn _ZNK6String7indexOfERKS_(this: *mut String, str: *const String)
      -> ::std::os::raw::c_int;
-    fn _ZNK6String7indexOfERKS_j(this: *mut String, str: *const Struct_String,
+    fn _ZNK6String7indexOfERKS_j(this: *mut String, str: *const String,
                                  fromIndex: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_int;
     fn _ZNK6String11lastIndexOfEc(this: *mut String,
@@ -1620,35 +1612,27 @@ extern "C" {
                                    ch: ::std::os::raw::c_uchar,
                                    fromIndex: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_int;
-    fn _ZNK6String11lastIndexOfERKS_(this: *mut String,
-                                     str: *const Struct_String)
+    fn _ZNK6String11lastIndexOfERKS_(this: *mut String, str: *const String)
      -> ::std::os::raw::c_int;
-    fn _ZNK6String11lastIndexOfERKS_j(this: *mut String,
-                                      str: *const Struct_String,
+    fn _ZNK6String11lastIndexOfERKS_j(this: *mut String, str: *const String,
                                       fromIndex: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_int;
     fn _ZNK6String9substringEj(this: *mut String,
-                               beginIndex: ::std::os::raw::c_uint)
-     -> Struct_String;
+                               beginIndex: ::std::os::raw::c_uint) -> String;
     fn _ZNK6String9substringEjj(this: *mut String,
                                 beginIndex: ::std::os::raw::c_uint,
-                                endIndex: ::std::os::raw::c_uint)
-     -> Struct_String;
+                                endIndex: ::std::os::raw::c_uint) -> String;
     fn _ZN6String7replaceEcc(this: *mut String, find: ::std::os::raw::c_uchar,
-                             replace: ::std::os::raw::c_uchar)
-     -> *mut Struct_String;
-    fn _ZN6String7replaceERKS_S1_(this: *mut String,
-                                  find: *const Struct_String,
-                                  replace: *const Struct_String)
-     -> *mut Struct_String;
+                             replace: ::std::os::raw::c_uchar) -> *mut String;
+    fn _ZN6String7replaceERKS_S1_(this: *mut String, find: *const String,
+                                  replace: *const String) -> *mut String;
     fn _ZN6String6removeEj(this: *mut String, index: ::std::os::raw::c_uint)
-     -> *mut Struct_String;
+     -> *mut String;
     fn _ZN6String6removeEjj(this: *mut String, index: ::std::os::raw::c_uint,
-                            count: ::std::os::raw::c_uint)
-     -> *mut Struct_String;
-    fn _ZN6String11toLowerCaseEv(this: *mut String) -> *mut Struct_String;
-    fn _ZN6String11toUpperCaseEv(this: *mut String) -> *mut Struct_String;
-    fn _ZN6String4trimEv(this: *mut String) -> *mut Struct_String;
+                            count: ::std::os::raw::c_uint) -> *mut String;
+    fn _ZN6String11toLowerCaseEv(this: *mut String) -> *mut String;
+    fn _ZN6String11toUpperCaseEv(this: *mut String) -> *mut String;
+    fn _ZN6String4trimEv(this: *mut String) -> *mut String;
     fn _ZNK6String5toIntEv(this: *mut String) -> ::std::os::raw::c_long;
     fn _ZNK6String7toFloatEv(this: *mut String) -> f32;
     fn _ZN6String4initEv(this: *mut String);
@@ -1657,10 +1641,9 @@ extern "C" {
      -> ::std::os::raw::c_uchar;
     fn _ZN6String6appendEPKcj(this: *mut String,
                               cstr: *const ::std::os::raw::c_uchar,
-                              length: ::std::os::raw::c_uint)
-     -> *mut Struct_String;
+                              length: ::std::os::raw::c_uint) -> *mut String;
 }
-impl Struct_String {
+impl String {
     #[inline]
     pub unsafe fn reserve(&mut self, size: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_uchar {
@@ -1672,132 +1655,129 @@ impl Struct_String {
     }
     #[inline]
     pub unsafe fn copy(&mut self, cstr: *const ::std::os::raw::c_uchar,
-                       length: ::std::os::raw::c_uint) -> *mut Struct_String {
+                       length: ::std::os::raw::c_uint) -> *mut String {
         _ZN6String4copyEPKcj(&mut *self, cstr, length)
     }
     #[inline]
-    pub unsafe fn copy1(&mut self, s: *const Struct___FlashStringHelper)
-     -> *mut Struct_String {
+    pub unsafe fn copy1(&mut self, s: *const __FlashStringHelper)
+     -> *mut String {
         _ZN6String4copyEPK19__FlashStringHelper(&mut *self, s)
     }
     #[inline]
-    pub unsafe fn move_(&mut self, rhs: *mut Struct_String) {
+    pub unsafe fn move_(&mut self, rhs: *mut String) {
         _ZN6String4moveERS_(&mut *self, rhs)
     }
     #[inline]
-    pub unsafe fn append(&mut self, str: *const Struct_String)
-     -> *mut Struct_String {
+    pub unsafe fn append(&mut self, str: *const String) -> *mut String {
         _ZN6String6appendERKS_(&mut *self, str)
     }
     #[inline]
     pub unsafe fn append1(&mut self, cstr: *const ::std::os::raw::c_uchar)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6appendEPKc(&mut *self, cstr)
     }
     #[inline]
-    pub unsafe fn append2(&mut self, s: *const Struct___FlashStringHelper)
-     -> *mut Struct_String {
+    pub unsafe fn append2(&mut self, s: *const __FlashStringHelper)
+     -> *mut String {
         _ZN6String6appendEPK19__FlashStringHelper(&mut *self, s)
     }
     #[inline]
     pub unsafe fn append3(&mut self, c: ::std::os::raw::c_uchar)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6appendEc(&mut *self, c)
     }
     #[inline]
     pub unsafe fn append4(&mut self, c: ::std::os::raw::c_uchar)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6appendEh(&mut *self, c)
     }
     #[inline]
     pub unsafe fn append5(&mut self, num: ::std::os::raw::c_int)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6appendEi(&mut *self, num)
     }
     #[inline]
     pub unsafe fn append6(&mut self, num: ::std::os::raw::c_uint)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6appendEj(&mut *self, num)
     }
     #[inline]
     pub unsafe fn append7(&mut self, num: ::std::os::raw::c_long)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6appendEl(&mut *self, num)
     }
     #[inline]
     pub unsafe fn append8(&mut self, num: ::std::os::raw::c_ulong)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6appendEm(&mut *self, num)
     }
     #[inline]
-    pub unsafe fn append9(&mut self, num: f32) -> *mut Struct_String {
+    pub unsafe fn append9(&mut self, num: f32) -> *mut String {
         _ZN6String6appendEf(&mut *self, num)
     }
     #[inline]
-    pub unsafe fn append10(&mut self, num: f64) -> *mut Struct_String {
+    pub unsafe fn append10(&mut self, num: f64) -> *mut String {
         _ZN6String6appendEd(&mut *self, num)
     }
     #[inline]
-    pub unsafe fn concat(&mut self, str: *const Struct_String)
-     -> *mut Struct_String {
+    pub unsafe fn concat(&mut self, str: *const String) -> *mut String {
         _ZN6String6concatERKS_(&mut *self, str)
     }
     #[inline]
     pub unsafe fn concat1(&mut self, cstr: *const ::std::os::raw::c_uchar)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6concatEPKc(&mut *self, cstr)
     }
     #[inline]
-    pub unsafe fn concat2(&mut self,
-                          pgmstr: *const Struct___FlashStringHelper)
-     -> *mut Struct_String {
+    pub unsafe fn concat2(&mut self, pgmstr: *const __FlashStringHelper)
+     -> *mut String {
         _ZN6String6concatEPK19__FlashStringHelper(&mut *self, pgmstr)
     }
     #[inline]
     pub unsafe fn concat3(&mut self, c: ::std::os::raw::c_uchar)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6concatEc(&mut *self, c)
     }
     #[inline]
     pub unsafe fn concat4(&mut self, c: ::std::os::raw::c_uchar)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6concatEh(&mut *self, c)
     }
     #[inline]
     pub unsafe fn concat5(&mut self, num: ::std::os::raw::c_int)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6concatEi(&mut *self, num)
     }
     #[inline]
     pub unsafe fn concat6(&mut self, num: ::std::os::raw::c_uint)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6concatEj(&mut *self, num)
     }
     #[inline]
     pub unsafe fn concat7(&mut self, num: ::std::os::raw::c_long)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6concatEl(&mut *self, num)
     }
     #[inline]
     pub unsafe fn concat8(&mut self, num: ::std::os::raw::c_ulong)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6concatEm(&mut *self, num)
     }
     #[inline]
-    pub unsafe fn concat9(&mut self, num: f32) -> *mut Struct_String {
+    pub unsafe fn concat9(&mut self, num: f32) -> *mut String {
         _ZN6String6concatEf(&mut *self, num)
     }
     #[inline]
-    pub unsafe fn concat10(&mut self, num: f64) -> *mut Struct_String {
+    pub unsafe fn concat10(&mut self, num: f64) -> *mut String {
         _ZN6String6concatEd(&mut *self, num)
     }
     #[inline]
-    pub unsafe fn compareTo(&mut self, s: *const Struct_String)
+    pub unsafe fn compareTo(&mut self, s: *const String)
      -> ::std::os::raw::c_int {
         _ZNK6String9compareToERKS_(&mut *self, s)
     }
     #[inline]
-    pub unsafe fn equals(&mut self, s: *const Struct_String)
+    pub unsafe fn equals(&mut self, s: *const String)
      -> ::std::os::raw::c_uchar {
         _ZNK6String6equalsERKS_(&mut *self, s)
     }
@@ -1807,23 +1787,23 @@ impl Struct_String {
         _ZNK6String6equalsEPKc(&mut *self, cstr)
     }
     #[inline]
-    pub unsafe fn equalsIgnoreCase(&mut self, s: *const Struct_String)
+    pub unsafe fn equalsIgnoreCase(&mut self, s: *const String)
      -> ::std::os::raw::c_uchar {
         _ZNK6String16equalsIgnoreCaseERKS_(&mut *self, s)
     }
     #[inline]
-    pub unsafe fn startsWith(&mut self, prefix: *const Struct_String)
+    pub unsafe fn startsWith(&mut self, prefix: *const String)
      -> ::std::os::raw::c_uchar {
         _ZNK6String10startsWithERKS_(&mut *self, prefix)
     }
     #[inline]
-    pub unsafe fn startsWith1(&mut self, prefix: *const Struct_String,
+    pub unsafe fn startsWith1(&mut self, prefix: *const String,
                               offset: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_uchar {
         _ZNK6String10startsWithERKS_j(&mut *self, prefix, offset)
     }
     #[inline]
-    pub unsafe fn endsWith(&mut self, suffix: *const Struct_String)
+    pub unsafe fn endsWith(&mut self, suffix: *const String)
      -> ::std::os::raw::c_uchar {
         _ZNK6String8endsWithERKS_(&mut *self, suffix)
     }
@@ -1865,12 +1845,12 @@ impl Struct_String {
         _ZNK6String7indexOfEcj(&mut *self, ch, fromIndex)
     }
     #[inline]
-    pub unsafe fn indexOf2(&mut self, str: *const Struct_String)
+    pub unsafe fn indexOf2(&mut self, str: *const String)
      -> ::std::os::raw::c_int {
         _ZNK6String7indexOfERKS_(&mut *self, str)
     }
     #[inline]
-    pub unsafe fn indexOf3(&mut self, str: *const Struct_String,
+    pub unsafe fn indexOf3(&mut self, str: *const String,
                            fromIndex: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_int {
         _ZNK6String7indexOfERKS_j(&mut *self, str, fromIndex)
@@ -1887,60 +1867,56 @@ impl Struct_String {
         _ZNK6String11lastIndexOfEcj(&mut *self, ch, fromIndex)
     }
     #[inline]
-    pub unsafe fn lastIndexOf2(&mut self, str: *const Struct_String)
+    pub unsafe fn lastIndexOf2(&mut self, str: *const String)
      -> ::std::os::raw::c_int {
         _ZNK6String11lastIndexOfERKS_(&mut *self, str)
     }
     #[inline]
-    pub unsafe fn lastIndexOf3(&mut self, str: *const Struct_String,
+    pub unsafe fn lastIndexOf3(&mut self, str: *const String,
                                fromIndex: ::std::os::raw::c_uint)
      -> ::std::os::raw::c_int {
         _ZNK6String11lastIndexOfERKS_j(&mut *self, str, fromIndex)
     }
     #[inline]
     pub unsafe fn substring(&mut self, beginIndex: ::std::os::raw::c_uint)
-     -> Struct_String {
+     -> String {
         _ZNK6String9substringEj(&mut *self, beginIndex)
     }
     #[inline]
     pub unsafe fn substring1(&mut self, beginIndex: ::std::os::raw::c_uint,
-                             endIndex: ::std::os::raw::c_uint)
-     -> Struct_String {
+                             endIndex: ::std::os::raw::c_uint) -> String {
         _ZNK6String9substringEjj(&mut *self, beginIndex, endIndex)
     }
     #[inline]
     pub unsafe fn replace(&mut self, find: ::std::os::raw::c_uchar,
-                          replace: ::std::os::raw::c_uchar)
-     -> *mut Struct_String {
+                          replace: ::std::os::raw::c_uchar) -> *mut String {
         _ZN6String7replaceEcc(&mut *self, find, replace)
     }
     #[inline]
-    pub unsafe fn replace1(&mut self, find: *const Struct_String,
-                           replace: *const Struct_String)
-     -> *mut Struct_String {
+    pub unsafe fn replace1(&mut self, find: *const String,
+                           replace: *const String) -> *mut String {
         _ZN6String7replaceERKS_S1_(&mut *self, find, replace)
     }
     #[inline]
     pub unsafe fn remove(&mut self, index: ::std::os::raw::c_uint)
-     -> *mut Struct_String {
+     -> *mut String {
         _ZN6String6removeEj(&mut *self, index)
     }
     #[inline]
     pub unsafe fn remove1(&mut self, index: ::std::os::raw::c_uint,
-                          count: ::std::os::raw::c_uint)
-     -> *mut Struct_String {
+                          count: ::std::os::raw::c_uint) -> *mut String {
         _ZN6String6removeEjj(&mut *self, index, count)
     }
     #[inline]
-    pub unsafe fn toLowerCase(&mut self) -> *mut Struct_String {
+    pub unsafe fn toLowerCase(&mut self) -> *mut String {
         _ZN6String11toLowerCaseEv(&mut *self)
     }
     #[inline]
-    pub unsafe fn toUpperCase(&mut self) -> *mut Struct_String {
+    pub unsafe fn toUpperCase(&mut self) -> *mut String {
         _ZN6String11toUpperCaseEv(&mut *self)
     }
     #[inline]
-    pub unsafe fn trim(&mut self) -> *mut Struct_String {
+    pub unsafe fn trim(&mut self) -> *mut String {
         _ZN6String4trimEv(&mut *self)
     }
     #[inline]
@@ -1960,20 +1936,19 @@ impl Struct_String {
     }
     #[inline]
     pub unsafe fn append11(&mut self, cstr: *const ::std::os::raw::c_uchar,
-                           length: ::std::os::raw::c_uint)
-     -> *mut Struct_String {
+                           length: ::std::os::raw::c_uint) -> *mut String {
         _ZN6String6appendEPKcj(&mut *self, cstr, length)
     }
 }
 #[repr(C)]
 #[derive(Debug)]
-pub struct Struct_StringSumHelper {
-    pub _base: Struct_String,
+pub struct StringSumHelper {
+    pub _base: String,
 }
 #[test]
-fn bindgen_test_layout_Struct_StringSumHelper() {
-    assert_eq!(::std::mem::size_of::<Struct_StringSumHelper>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_StringSumHelper>() , 4usize);
+fn bindgen_test_layout_StringSumHelper() {
+    assert_eq!(::std::mem::size_of::<StringSumHelper>() , 16usize);
+    assert_eq!(::std::mem::align_of::<StringSumHelper>() , 4usize);
 }
 pub type __guard = ::std::os::raw::c_longlong;
 /** The Printable class provides a way for new classes to allow themselves to be printed.
@@ -1983,42 +1958,42 @@ pub type __guard = ::std::os::raw::c_longlong;
 */
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_Printable {
-    pub _vftable: *const _vftable_Struct_Printable,
+pub struct Printable {
+    pub _vftable: *const _vftable_Printable,
 }
 #[repr(C)]
-pub struct _vftable_Struct_Printable {
+pub struct _vftable_Printable {
     pub printTo: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
-                                      p: *mut Struct_Print) -> usize,
+                                      p: *mut Print) -> usize,
 }
-impl ::std::clone::Clone for Struct_Printable {
+impl ::std::clone::Clone for Printable {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_Printable() {
-    assert_eq!(::std::mem::size_of::<Struct_Printable>() , 4usize);
-    assert_eq!(::std::mem::align_of::<Struct_Printable>() , 4usize);
+fn bindgen_test_layout_Printable() {
+    assert_eq!(::std::mem::size_of::<Printable>() , 4usize);
+    assert_eq!(::std::mem::align_of::<Printable>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_Print {
-    pub _vftable: *const _vftable_Struct_Print,
+pub struct Print {
+    pub _vftable: *const _vftable_Print,
     pub write_error: ::std::os::raw::c_uchar,
 }
 #[repr(C)]
-pub struct _vftable_Struct_Print {
+pub struct _vftable_Print {
     pub write: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void, b: u8)
                    -> usize,
     pub write: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                     buffer: *const u8, size: usize) -> usize,
 }
-impl ::std::clone::Clone for Struct_Print {
+impl ::std::clone::Clone for Print {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_Print() {
-    assert_eq!(::std::mem::size_of::<Struct_Print>() , 8usize);
-    assert_eq!(::std::mem::align_of::<Struct_Print>() , 4usize);
+fn bindgen_test_layout_Print() {
+    assert_eq!(::std::mem::size_of::<Print>() , 8usize);
+    assert_eq!(::std::mem::align_of::<Print>() , 4usize);
 }
 extern "C" {
     fn _ZN5Print5writeEPKc(this: *mut Print,
@@ -2026,15 +2001,13 @@ extern "C" {
     fn _ZN5Print5writeEPKcj(this: *mut Print,
                             buffer: *const ::std::os::raw::c_uchar,
                             size: usize) -> usize;
-    fn _ZN5Print5printERK6String(this: *mut Print, s: *const Struct_String)
-     -> usize;
+    fn _ZN5Print5printERK6String(this: *mut Print, s: *const String) -> usize;
     fn _ZN5Print5printEc(this: *mut Print, c: ::std::os::raw::c_uchar)
      -> usize;
     fn _ZN5Print5printEPKc(this: *mut Print,
                            s: *const ::std::os::raw::c_uchar) -> usize;
     fn _ZN5Print5printEPK19__FlashStringHelper(this: *mut Print,
-                                               f:
-                                                   *const Struct___FlashStringHelper)
+                                               f: *const __FlashStringHelper)
      -> usize;
     fn _ZN5Print5printEh(this: *mut Print, b: u8) -> usize;
     fn _ZN5Print5printEi(this: *mut Print, n: ::std::os::raw::c_int) -> usize;
@@ -2056,10 +2029,10 @@ extern "C" {
                           base: ::std::os::raw::c_int) -> usize;
     fn _ZN5Print5printEdi(this: *mut Print, n: f64,
                           digits: ::std::os::raw::c_int) -> usize;
-    fn _ZN5Print5printERK9Printable(this: *mut Print,
-                                    obj: *const Struct_Printable) -> usize;
+    fn _ZN5Print5printERK9Printable(this: *mut Print, obj: *const Printable)
+     -> usize;
     fn _ZN5Print7printlnEv(this: *mut Print) -> usize;
-    fn _ZN5Print7printlnERK6String(this: *mut Print, s: *const Struct_String)
+    fn _ZN5Print7printlnERK6String(this: *mut Print, s: *const String)
      -> usize;
     fn _ZN5Print7printlnEc(this: *mut Print, c: ::std::os::raw::c_uchar)
      -> usize;
@@ -2067,7 +2040,7 @@ extern "C" {
                              s: *const ::std::os::raw::c_uchar) -> usize;
     fn _ZN5Print7printlnEPK19__FlashStringHelper(this: *mut Print,
                                                  f:
-                                                     *const Struct___FlashStringHelper)
+                                                     *const __FlashStringHelper)
      -> usize;
     fn _ZN5Print7printlnEh(this: *mut Print, b: u8) -> usize;
     fn _ZN5Print7printlnEi(this: *mut Print, n: ::std::os::raw::c_int)
@@ -2090,8 +2063,8 @@ extern "C" {
                             base: ::std::os::raw::c_int) -> usize;
     fn _ZN5Print7printlnEdi(this: *mut Print, n: f64,
                             digits: ::std::os::raw::c_int) -> usize;
-    fn _ZN5Print7printlnERK9Printable(this: *mut Print,
-                                      obj: *const Struct_Printable) -> usize;
+    fn _ZN5Print7printlnERK9Printable(this: *mut Print, obj: *const Printable)
+     -> usize;
     fn _ZN5Print13getWriteErrorEv(this: *mut Print) -> ::std::os::raw::c_int;
     fn _ZN5Print15clearWriteErrorEv(this: *mut Print);
     fn _ZN5Print6printfEPKcz(this: *mut Print,
@@ -2099,12 +2072,12 @@ extern "C" {
      -> ::std::os::raw::c_int;
     fn _ZN5Print6printfEPK19__FlashStringHelperz(this: *mut Print,
                                                  format:
-                                                     *const Struct___FlashStringHelper, ...)
+                                                     *const __FlashStringHelper, ...)
      -> ::std::os::raw::c_int;
     fn _ZN5Print13setWriteErrorEi(this: *mut Print,
                                   err: ::std::os::raw::c_int);
 }
-impl Struct_Print {
+impl Print {
     #[inline]
     pub unsafe fn write(&mut self, str: *const ::std::os::raw::c_uchar)
      -> usize {
@@ -2116,7 +2089,7 @@ impl Struct_Print {
         _ZN5Print5writeEPKcj(&mut *self, buffer, size)
     }
     #[inline]
-    pub unsafe fn print(&mut self, s: *const Struct_String) -> usize {
+    pub unsafe fn print(&mut self, s: *const String) -> usize {
         _ZN5Print5printERK6String(&mut *self, s)
     }
     #[inline]
@@ -2129,8 +2102,7 @@ impl Struct_Print {
         _ZN5Print5printEPKc(&mut *self, s)
     }
     #[inline]
-    pub unsafe fn print3(&mut self, f: *const Struct___FlashStringHelper)
-     -> usize {
+    pub unsafe fn print3(&mut self, f: *const __FlashStringHelper) -> usize {
         _ZN5Print5printEPK19__FlashStringHelper(&mut *self, f)
     }
     #[inline]
@@ -2184,7 +2156,7 @@ impl Struct_Print {
         _ZN5Print5printEdi(&mut *self, n, digits)
     }
     #[inline]
-    pub unsafe fn print15(&mut self, obj: *const Struct_Printable) -> usize {
+    pub unsafe fn print15(&mut self, obj: *const Printable) -> usize {
         _ZN5Print5printERK9Printable(&mut *self, obj)
     }
     #[inline]
@@ -2192,7 +2164,7 @@ impl Struct_Print {
         _ZN5Print7printlnEv(&mut *self)
     }
     #[inline]
-    pub unsafe fn println1(&mut self, s: *const Struct_String) -> usize {
+    pub unsafe fn println1(&mut self, s: *const String) -> usize {
         _ZN5Print7printlnERK6String(&mut *self, s)
     }
     #[inline]
@@ -2205,7 +2177,7 @@ impl Struct_Print {
         _ZN5Print7printlnEPKc(&mut *self, s)
     }
     #[inline]
-    pub unsafe fn println4(&mut self, f: *const Struct___FlashStringHelper)
+    pub unsafe fn println4(&mut self, f: *const __FlashStringHelper)
      -> usize {
         _ZN5Print7printlnEPK19__FlashStringHelper(&mut *self, f)
     }
@@ -2260,8 +2232,7 @@ impl Struct_Print {
         _ZN5Print7printlnEdi(&mut *self, n, digits)
     }
     #[inline]
-    pub unsafe fn println16(&mut self, obj: *const Struct_Printable)
-     -> usize {
+    pub unsafe fn println16(&mut self, obj: *const Printable) -> usize {
         _ZN5Print7printlnERK9Printable(&mut *self, obj)
     }
     #[inline]
@@ -2278,8 +2249,7 @@ impl Struct_Print {
         _ZN5Print6printfEPKcz(&mut *self, format)
     }
     #[inline]
-    pub unsafe fn printf1(&mut self,
-                          format: *const Struct___FlashStringHelper)
+    pub unsafe fn printf1(&mut self, format: *const __FlashStringHelper)
      -> ::std::os::raw::c_int {
         _ZN5Print6printfEPK19__FlashStringHelperz(&mut *self, format)
     }
@@ -2290,13 +2260,13 @@ impl Struct_Print {
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_Stream {
-    pub _base: Struct_Print,
+pub struct Stream {
+    pub _base: Print,
     pub _timeout: ::std::os::raw::c_ulong,
     pub read_error: ::std::os::raw::c_uchar,
 }
 #[repr(C)]
-pub struct _vftable_Struct_Stream {
+pub struct _vftable_Stream {
     pub _base: _vftable_Print,
     pub available: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void)
                        -> ::std::os::raw::c_int,
@@ -2306,13 +2276,13 @@ pub struct _vftable_Struct_Stream {
                   -> ::std::os::raw::c_int,
     pub flush: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void),
 }
-impl ::std::clone::Clone for Struct_Stream {
+impl ::std::clone::Clone for Stream {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_Stream() {
-    assert_eq!(::std::mem::size_of::<Struct_Stream>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_Stream>() , 4usize);
+fn bindgen_test_layout_Stream() {
+    assert_eq!(::std::mem::size_of::<Stream>() , 16usize);
+    assert_eq!(::std::mem::align_of::<Stream>() , 4usize);
 }
 extern "C" {
     fn _ZN6Stream10setTimeoutEm(this: *mut Stream,
@@ -2361,17 +2331,16 @@ extern "C" {
                                        terminator: ::std::os::raw::c_uchar,
                                        buffer: *mut u8, length: usize)
      -> usize;
-    fn _ZN6Stream10readStringEj(this: *mut Stream, max: usize)
-     -> Struct_String;
+    fn _ZN6Stream10readStringEj(this: *mut Stream, max: usize) -> String;
     fn _ZN6Stream15readStringUntilEcj(this: *mut Stream,
                                       terminator: ::std::os::raw::c_uchar,
-                                      max: usize) -> Struct_String;
+                                      max: usize) -> String;
     fn _ZN6Stream12getReadErrorEv(this: *mut Stream) -> ::std::os::raw::c_int;
     fn _ZN6Stream14clearReadErrorEv(this: *mut Stream);
     fn _ZN6Stream12setReadErrorEi(this: *mut Stream,
                                   err: ::std::os::raw::c_int);
 }
-impl Struct_Stream {
+impl Stream {
     #[inline]
     pub unsafe fn setTimeout(&mut self, timeout: ::std::os::raw::c_ulong) {
         _ZN6Stream10setTimeoutEm(&mut *self, timeout)
@@ -2465,13 +2434,13 @@ impl Struct_Stream {
                                         length)
     }
     #[inline]
-    pub unsafe fn readString(&mut self, max: usize) -> Struct_String {
+    pub unsafe fn readString(&mut self, max: usize) -> String {
         _ZN6Stream10readStringEj(&mut *self, max)
     }
     #[inline]
     pub unsafe fn readStringUntil(&mut self,
                                   terminator: ::std::os::raw::c_uchar,
-                                  max: usize) -> Struct_String {
+                                  max: usize) -> String {
         _ZN6Stream15readStringUntilEcj(&mut *self, terminator, max)
     }
     #[inline]
@@ -2489,11 +2458,11 @@ impl Struct_Stream {
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_HardwareSerial {
-    pub _base: Struct_Stream,
+pub struct HardwareSerial {
+    pub _base: Stream,
 }
 #[repr(C)]
-pub struct _vftable_Struct_HardwareSerial {
+pub struct _vftable_HardwareSerial {
     pub _base: _vftable_Stream,
     pub begin: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                     baud: u32),
@@ -2540,21 +2509,21 @@ pub struct _vftable_Struct_HardwareSerial {
     pub write9bit: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                         c: u32) -> usize,
 }
-impl ::std::clone::Clone for Struct_HardwareSerial {
+impl ::std::clone::Clone for HardwareSerial {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_HardwareSerial() {
-    assert_eq!(::std::mem::size_of::<Struct_HardwareSerial>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_HardwareSerial>() , 4usize);
+fn bindgen_test_layout_HardwareSerial() {
+    assert_eq!(::std::mem::size_of::<HardwareSerial>() , 16usize);
+    assert_eq!(::std::mem::align_of::<HardwareSerial>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_HardwareSerial2 {
-    pub _base: Struct_HardwareSerial,
+pub struct HardwareSerial2 {
+    pub _base: HardwareSerial,
 }
 #[repr(C)]
-pub struct _vftable_Struct_HardwareSerial2 {
+pub struct _vftable_HardwareSerial2 {
     pub _base: _vftable_HardwareSerial,
     pub begin: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                     baud: u32),
@@ -2601,21 +2570,21 @@ pub struct _vftable_Struct_HardwareSerial2 {
     pub write9bit: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                         c: u32) -> usize,
 }
-impl ::std::clone::Clone for Struct_HardwareSerial2 {
+impl ::std::clone::Clone for HardwareSerial2 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_HardwareSerial2() {
-    assert_eq!(::std::mem::size_of::<Struct_HardwareSerial2>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_HardwareSerial2>() , 4usize);
+fn bindgen_test_layout_HardwareSerial2() {
+    assert_eq!(::std::mem::size_of::<HardwareSerial2>() , 16usize);
+    assert_eq!(::std::mem::align_of::<HardwareSerial2>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_HardwareSerial3 {
-    pub _base: Struct_HardwareSerial,
+pub struct HardwareSerial3 {
+    pub _base: HardwareSerial,
 }
 #[repr(C)]
-pub struct _vftable_Struct_HardwareSerial3 {
+pub struct _vftable_HardwareSerial3 {
     pub _base: _vftable_HardwareSerial,
     pub begin: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                     baud: u32),
@@ -2662,21 +2631,21 @@ pub struct _vftable_Struct_HardwareSerial3 {
     pub write9bit: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                         c: u32) -> usize,
 }
-impl ::std::clone::Clone for Struct_HardwareSerial3 {
+impl ::std::clone::Clone for HardwareSerial3 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_HardwareSerial3() {
-    assert_eq!(::std::mem::size_of::<Struct_HardwareSerial3>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_HardwareSerial3>() , 4usize);
+fn bindgen_test_layout_HardwareSerial3() {
+    assert_eq!(::std::mem::size_of::<HardwareSerial3>() , 16usize);
+    assert_eq!(::std::mem::align_of::<HardwareSerial3>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_HardwareSerial4 {
-    pub _base: Struct_HardwareSerial,
+pub struct HardwareSerial4 {
+    pub _base: HardwareSerial,
 }
 #[repr(C)]
-pub struct _vftable_Struct_HardwareSerial4 {
+pub struct _vftable_HardwareSerial4 {
     pub _base: _vftable_HardwareSerial,
     pub begin: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                     baud: u32),
@@ -2723,21 +2692,21 @@ pub struct _vftable_Struct_HardwareSerial4 {
     pub write9bit: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                         c: u32) -> usize,
 }
-impl ::std::clone::Clone for Struct_HardwareSerial4 {
+impl ::std::clone::Clone for HardwareSerial4 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_HardwareSerial4() {
-    assert_eq!(::std::mem::size_of::<Struct_HardwareSerial4>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_HardwareSerial4>() , 4usize);
+fn bindgen_test_layout_HardwareSerial4() {
+    assert_eq!(::std::mem::size_of::<HardwareSerial4>() , 16usize);
+    assert_eq!(::std::mem::align_of::<HardwareSerial4>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_HardwareSerial5 {
-    pub _base: Struct_HardwareSerial,
+pub struct HardwareSerial5 {
+    pub _base: HardwareSerial,
 }
 #[repr(C)]
-pub struct _vftable_Struct_HardwareSerial5 {
+pub struct _vftable_HardwareSerial5 {
     pub _base: _vftable_HardwareSerial,
     pub begin: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                     baud: u32),
@@ -2784,21 +2753,21 @@ pub struct _vftable_Struct_HardwareSerial5 {
     pub write9bit: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                         c: u32) -> usize,
 }
-impl ::std::clone::Clone for Struct_HardwareSerial5 {
+impl ::std::clone::Clone for HardwareSerial5 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_HardwareSerial5() {
-    assert_eq!(::std::mem::size_of::<Struct_HardwareSerial5>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_HardwareSerial5>() , 4usize);
+fn bindgen_test_layout_HardwareSerial5() {
+    assert_eq!(::std::mem::size_of::<HardwareSerial5>() , 16usize);
+    assert_eq!(::std::mem::align_of::<HardwareSerial5>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_HardwareSerial6 {
-    pub _base: Struct_HardwareSerial,
+pub struct HardwareSerial6 {
+    pub _base: HardwareSerial,
 }
 #[repr(C)]
-pub struct _vftable_Struct_HardwareSerial6 {
+pub struct _vftable_HardwareSerial6 {
     pub _base: _vftable_HardwareSerial,
     pub begin: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                     baud: u32),
@@ -2845,72 +2814,72 @@ pub struct _vftable_Struct_HardwareSerial6 {
     pub write9bit: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                         c: u32) -> usize,
 }
-impl ::std::clone::Clone for Struct_HardwareSerial6 {
+impl ::std::clone::Clone for HardwareSerial6 {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_HardwareSerial6() {
-    assert_eq!(::std::mem::size_of::<Struct_HardwareSerial6>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_HardwareSerial6>() , 4usize);
+fn bindgen_test_layout_HardwareSerial6() {
+    assert_eq!(::std::mem::size_of::<HardwareSerial6>() , 16usize);
+    assert_eq!(::std::mem::align_of::<HardwareSerial6>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_PORTDemulation;
-impl ::std::clone::Clone for Struct_PORTDemulation {
+pub struct PORTDemulation;
+impl ::std::clone::Clone for PORTDemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_PINDemulation;
-impl ::std::clone::Clone for Struct_PINDemulation {
+pub struct PINDemulation;
+impl ::std::clone::Clone for PINDemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_DDRDemulation;
-impl ::std::clone::Clone for Struct_DDRDemulation {
+pub struct DDRDemulation;
+impl ::std::clone::Clone for DDRDemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_PORTBemulation;
-impl ::std::clone::Clone for Struct_PORTBemulation {
+pub struct PORTBemulation;
+impl ::std::clone::Clone for PORTBemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_PINBemulation;
-impl ::std::clone::Clone for Struct_PINBemulation {
+pub struct PINBemulation;
+impl ::std::clone::Clone for PINBemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_DDRBemulation;
-impl ::std::clone::Clone for Struct_DDRBemulation {
+pub struct DDRBemulation;
+impl ::std::clone::Clone for DDRBemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_PORTCemulation;
-impl ::std::clone::Clone for Struct_PORTCemulation {
+pub struct PORTCemulation;
+impl ::std::clone::Clone for PORTCemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_PINCemulation;
-impl ::std::clone::Clone for Struct_PINCemulation {
+pub struct PINCemulation;
+impl ::std::clone::Clone for PINCemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_DDRCemulation;
-impl ::std::clone::Clone for Struct_DDRCemulation {
+pub struct DDRCemulation;
+impl ::std::clone::Clone for DDRCemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_SPCRemulation;
-impl ::std::clone::Clone for Struct_SPCRemulation {
+pub struct SPCRemulation;
+impl ::std::clone::Clone for SPCRemulation {
     fn clone(&self) -> Self { *self }
 }
 extern "C" {
@@ -2920,7 +2889,7 @@ extern "C" {
     fn _ZN13SPCRemulation11enable_pinsEv(this: *mut SPCRemulation);
     fn _ZN13SPCRemulation12disable_pinsEv(this: *mut SPCRemulation);
 }
-impl Struct_SPCRemulation {
+impl SPCRemulation {
     #[inline]
     pub unsafe fn setMOSI(&mut self, pin: u8) {
         _ZN13SPCRemulation7setMOSIEh(&mut *self, pin)
@@ -2944,40 +2913,39 @@ impl Struct_SPCRemulation {
 }
 extern "C" {
     #[link_name = "_ZN13SPCRemulation6pinoutE"]
-    pub static mut Struct_SPCRemulation_consts_pinout:
-               ::std::os::raw::c_uchar;
+    pub static mut SPCRemulation_consts_pinout: ::std::os::raw::c_uchar;
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_SPSRemulation;
-impl ::std::clone::Clone for Struct_SPSRemulation {
+pub struct SPSRemulation;
+impl ::std::clone::Clone for SPSRemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_SPDRemulation;
-impl ::std::clone::Clone for Struct_SPDRemulation {
+pub struct SPDRemulation;
+impl ::std::clone::Clone for SPDRemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_SREGemulation;
-impl ::std::clone::Clone for Struct_SREGemulation {
+pub struct SREGemulation;
+impl ::std::clone::Clone for SREGemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_EIMSKemulation;
-impl ::std::clone::Clone for Struct_EIMSKemulation {
+pub struct EIMSKemulation;
+impl ::std::clone::Clone for EIMSKemulation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_usb_serial_class {
-    pub _base: Struct_Stream,
+pub struct usb_serial_class {
+    pub _base: Stream,
 }
 #[repr(C)]
-pub struct _vftable_Struct_usb_serial_class {
+pub struct _vftable_usb_serial_class {
     pub _base: _vftable_Stream,
     pub available: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void)
                        -> ::std::os::raw::c_int,
@@ -2992,13 +2960,13 @@ pub struct _vftable_Struct_usb_serial_class {
     pub write: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
                                     buffer: *const u8, size: usize) -> usize,
 }
-impl ::std::clone::Clone for Struct_usb_serial_class {
+impl ::std::clone::Clone for usb_serial_class {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_usb_serial_class() {
-    assert_eq!(::std::mem::size_of::<Struct_usb_serial_class>() , 16usize);
-    assert_eq!(::std::mem::align_of::<Struct_usb_serial_class>() , 4usize);
+fn bindgen_test_layout_usb_serial_class() {
+    assert_eq!(::std::mem::size_of::<usb_serial_class>() , 16usize);
+    assert_eq!(::std::mem::align_of::<usb_serial_class>() , 4usize);
 }
 extern "C" {
     fn _ZN16usb_serial_class5beginEl(this: *mut usb_serial_class,
@@ -3026,7 +2994,7 @@ extern "C" {
                                                *mut ::std::os::raw::c_uchar,
                                            length: usize) -> usize;
 }
-impl Struct_usb_serial_class {
+impl usb_serial_class {
     #[inline]
     pub unsafe fn begin(&mut self, arg1: ::std::os::raw::c_long) {
         _ZN16usb_serial_class5beginEl(&mut *self, arg1)
@@ -3089,33 +3057,33 @@ impl Struct_usb_serial_class {
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_elapsedMillis {
+pub struct elapsedMillis {
     pub ms: ::std::os::raw::c_ulong,
 }
-impl ::std::clone::Clone for Struct_elapsedMillis {
+impl ::std::clone::Clone for elapsedMillis {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_elapsedMillis() {
-    assert_eq!(::std::mem::size_of::<Struct_elapsedMillis>() , 4usize);
-    assert_eq!(::std::mem::align_of::<Struct_elapsedMillis>() , 4usize);
+fn bindgen_test_layout_elapsedMillis() {
+    assert_eq!(::std::mem::size_of::<elapsedMillis>() , 4usize);
+    assert_eq!(::std::mem::align_of::<elapsedMillis>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
-pub struct Struct_elapsedMicros {
+pub struct elapsedMicros {
     pub us: ::std::os::raw::c_ulong,
 }
-impl ::std::clone::Clone for Struct_elapsedMicros {
+impl ::std::clone::Clone for elapsedMicros {
     fn clone(&self) -> Self { *self }
 }
 #[test]
-fn bindgen_test_layout_Struct_elapsedMicros() {
-    assert_eq!(::std::mem::size_of::<Struct_elapsedMicros>() , 4usize);
-    assert_eq!(::std::mem::align_of::<Struct_elapsedMicros>() , 4usize);
+fn bindgen_test_layout_elapsedMicros() {
+    assert_eq!(::std::mem::size_of::<elapsedMicros>() , 4usize);
+    assert_eq!(::std::mem::align_of::<elapsedMicros>() , 4usize);
 }
 #[repr(C)]
 #[derive(Debug)]
-pub struct Struct_IntervalTimer {
+pub struct IntervalTimer {
     pub status: bool,
     pub PIT_id: u8,
     pub PIT_LDVAL: *mut ::std::os::raw::c_uint,
@@ -3131,9 +3099,9 @@ pub enum IntervalTimer_IntervalTimer_h_unnamed_7 {
     TIMER_PIT = 1,
 }
 #[test]
-fn bindgen_test_layout_Struct_IntervalTimer() {
-    assert_eq!(::std::mem::size_of::<Struct_IntervalTimer>() , 20usize);
-    assert_eq!(::std::mem::align_of::<Struct_IntervalTimer>() , 4usize);
+fn bindgen_test_layout_IntervalTimer() {
+    assert_eq!(::std::mem::size_of::<IntervalTimer>() , 20usize);
+    assert_eq!(::std::mem::align_of::<IntervalTimer>() , 4usize);
 }
 extern "C" {
     fn _ZN13IntervalTimer5beginEPFvvEj(this: *mut IntervalTimer,
@@ -3167,7 +3135,7 @@ extern "C" {
     fn _ZN13IntervalTimer3endEv(this: *mut IntervalTimer);
     fn _ZN13IntervalTimer8priorityEh(this: *mut IntervalTimer, n: u8);
 }
-impl Struct_IntervalTimer {
+impl IntervalTimer {
     #[inline]
     pub unsafe fn begin(&mut self,
                         newISR: ::std::option::Option<unsafe extern "C" fn()>,
@@ -3218,15 +3186,15 @@ impl Struct_IntervalTimer {
 }
 extern "C" {
     #[link_name = "_ZN13IntervalTimer7NUM_PITE"]
-    pub static Struct_IntervalTimer_consts_NUM_PIT: ::std::os::raw::c_uchar;
+    pub static IntervalTimer_consts_NUM_PIT: ::std::os::raw::c_uchar;
     #[link_name = "_ZN13IntervalTimer10MAX_PERIODE"]
-    pub static Struct_IntervalTimer_consts_MAX_PERIOD: ::std::os::raw::c_uint;
+    pub static IntervalTimer_consts_MAX_PERIOD: ::std::os::raw::c_uint;
     #[link_name = "_ZN13IntervalTimer11PIT_enabledE"]
-    pub static mut Struct_IntervalTimer_consts_PIT_enabled: bool;
+    pub static mut IntervalTimer_consts_PIT_enabled: bool;
     #[link_name = "_ZN13IntervalTimer8PIT_usedE"]
-    pub static mut Struct_IntervalTimer_consts_PIT_used: [bool; 4usize];
+    pub static mut IntervalTimer_consts_PIT_used: [bool; 4usize];
     #[link_name = "_ZN13IntervalTimer7PIT_ISRE"]
-    pub static mut Struct_IntervalTimer_consts_PIT_ISR:
+    pub static mut IntervalTimer_consts_PIT_ISR:
                [::std::option::Option<unsafe extern "C" fn()>; 4usize];
 }
 extern "C" {
@@ -3235,36 +3203,36 @@ extern "C" {
     pub static mut _VectorsFlash:
                [::std::option::Option<unsafe extern "C" fn()>; 111usize];
     pub static mut digital_pin_to_info_PGM:
-               Struct_digital_pin_bitband_and_config_table_struct;
+               digital_pin_bitband_and_config_table_struct;
     pub static mut systick_millis_count: ::std::os::raw::c_uint;
-    pub static mut Teensy3Clock: Struct_teensy3_clock_class;
-    pub static mut Serial1: Struct_HardwareSerial;
-    pub static mut Serial2: Struct_HardwareSerial2;
-    pub static mut Serial3: Struct_HardwareSerial3;
-    pub static mut Serial4: Struct_HardwareSerial4;
-    pub static mut Serial5: Struct_HardwareSerial5;
-    pub static mut Serial6: Struct_HardwareSerial6;
-    pub static mut PORTD: Struct_PORTDemulation;
-    pub static mut PIND: Struct_PINDemulation;
-    pub static mut DDRD: Struct_DDRDemulation;
-    pub static mut PORTB: Struct_PORTBemulation;
-    pub static mut PINB: Struct_PINBemulation;
-    pub static mut DDRB: Struct_DDRBemulation;
-    pub static mut PORTC: Struct_PORTCemulation;
-    pub static mut PINC: Struct_PINCemulation;
-    pub static mut DDRC: Struct_DDRCemulation;
-    pub static mut SPCR: Struct_SPCRemulation;
-    pub static mut SPSR: Struct_SPSRemulation;
-    pub static mut SPDR: Struct_SPDRemulation;
-    pub static mut SREG: Struct_SREGemulation;
-    pub static mut EIMSK: Struct_EIMSKemulation;
+    pub static mut Teensy3Clock: teensy3_clock_class;
+    pub static mut Serial1: HardwareSerial;
+    pub static mut Serial2: HardwareSerial2;
+    pub static mut Serial3: HardwareSerial3;
+    pub static mut Serial4: HardwareSerial4;
+    pub static mut Serial5: HardwareSerial5;
+    pub static mut Serial6: HardwareSerial6;
+    pub static mut PORTD: PORTDemulation;
+    pub static mut PIND: PINDemulation;
+    pub static mut DDRD: DDRDemulation;
+    pub static mut PORTB: PORTBemulation;
+    pub static mut PINB: PINBemulation;
+    pub static mut DDRB: DDRBemulation;
+    pub static mut PORTC: PORTCemulation;
+    pub static mut PINC: PINCemulation;
+    pub static mut DDRC: DDRCemulation;
+    pub static mut SPCR: SPCRemulation;
+    pub static mut SPSR: SPSRemulation;
+    pub static mut SPDR: SPDRemulation;
+    pub static mut SREG: SREGemulation;
+    pub static mut EIMSK: EIMSKemulation;
     pub static mut usb_cdc_line_coding: [::std::os::raw::c_uint; 2usize];
     pub static mut usb_cdc_line_rtsdtr_millis: ::std::os::raw::c_uint;
     pub static mut systick_millis_count: ::std::os::raw::c_uint;
     pub static mut usb_cdc_line_rtsdtr: ::std::os::raw::c_uchar;
     pub static mut usb_cdc_transmit_flush_timer: ::std::os::raw::c_uchar;
     pub static mut usb_configuration: ::std::os::raw::c_uchar;
-    pub static mut Serial: Struct_usb_serial_class;
+    pub static mut Serial: usb_serial_class;
     pub static mut keycodes_ascii: *const ::std::os::raw::c_uchar;
     pub static mut keycodes_iso_8859_1: *const ::std::os::raw::c_uchar;
 }
@@ -3414,7 +3382,7 @@ extern "C" {
     pub fn analogWriteFrequency(pin: u8, frequency: f32);
     pub fn analogWriteDAC0(val: ::std::os::raw::c_int);
     pub fn analogWriteDAC1(val: ::std::os::raw::c_int);
-    pub fn attachInterruptVector(irq: Enum_IRQ_NUMBER_t,
+    pub fn attachInterruptVector(irq: IRQ_NUMBER_t,
                                  function:
                                      ::std::option::Option<unsafe extern "C" fn()>);
     pub fn attachInterrupt(pin: u8,
