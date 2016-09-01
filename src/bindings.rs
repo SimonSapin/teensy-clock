@@ -3228,7 +3228,7 @@ extern "C" {
     pub static mut EIMSK: EIMSKemulation;
     pub static mut usb_cdc_line_coding: [::std::os::raw::c_uint; 2usize];
     pub static mut usb_cdc_line_rtsdtr_millis: ::std::os::raw::c_uint;
-    pub static mut systick_millis_count: ::std::os::raw::c_uint;
+//    pub static mut systick_millis_count: ::std::os::raw::c_uint;
     pub static mut usb_cdc_line_rtsdtr: ::std::os::raw::c_uchar;
     pub static mut usb_cdc_transmit_flush_timer: ::std::os::raw::c_uchar;
     pub static mut usb_configuration: ::std::os::raw::c_uchar;
