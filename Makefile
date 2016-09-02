@@ -11,7 +11,7 @@ rust:
 
 bindgen:
 	PATH="/home/simon/projects/servo/ports/geckolib/binding_tools/rust-bindgen/target/debug:$$PATH" \
-	bindgen --no-type-renaming --match teensy3 teensy3/WProgram.h -o src/bindings.rs -- \
+	bindgen --no-type-renaming --match teensy3 teensy3/WProgram+SPI.h -o src/bindings.rs -- \
 	-I/usr/lib/clang/3.8.1/include -x c++ -std=gnu++11 -target thumbv7em-none-eabi \
 	-DF_CPU=48000000 -DUSB_SERIAL -DLAYOUT_US_ENGLISH -DUSING_MAKEFILE \
 	-D__MK20DX256__ -DARDUINO=10600 -DTEENSYDUINO=121

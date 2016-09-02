@@ -1170,6 +1170,22 @@ pub const USB_SERIAL_DTR: ::std::os::raw::c_uint = 1;
 pub const USB_SERIAL_RTS: ::std::os::raw::c_uint = 2;
 pub const SHIFT_MASK: ::std::os::raw::c_uint = 64;
 pub const KEYCODE_MASK: ::std::os::raw::c_uint = 127;
+pub const SPI_HAS_TRANSACTION: ::std::os::raw::c_uint = 1;
+pub const SPI_MODE0: ::std::os::raw::c_uint = 0;
+pub const SPI_MODE1: ::std::os::raw::c_uint = 4;
+pub const SPI_MODE2: ::std::os::raw::c_uint = 8;
+pub const SPI_MODE3: ::std::os::raw::c_uint = 12;
+pub const SPI_CLOCK_DIV4: ::std::os::raw::c_uint = 0;
+pub const SPI_CLOCK_DIV16: ::std::os::raw::c_uint = 1;
+pub const SPI_CLOCK_DIV64: ::std::os::raw::c_uint = 2;
+pub const SPI_CLOCK_DIV128: ::std::os::raw::c_uint = 3;
+pub const SPI_CLOCK_DIV2: ::std::os::raw::c_uint = 4;
+pub const SPI_CLOCK_DIV8: ::std::os::raw::c_uint = 5;
+pub const SPI_CLOCK_DIV32: ::std::os::raw::c_uint = 6;
+pub const SPI_MODE_MASK: ::std::os::raw::c_uint = 12;
+pub const SPI_CLOCK_MASK: ::std::os::raw::c_uint = 3;
+pub const SPI_2XCLOCK_MASK: ::std::os::raw::c_uint = 1;
+pub const SPI_HAS_NOTUSINGINTERRUPT: ::std::os::raw::c_uint = 1;
 pub type prog_void = ::std::os::raw::c_void;
 pub type prog_char = ::std::os::raw::c_uchar;
 pub type prog_uchar = ::std::os::raw::c_uchar;
@@ -3197,6 +3213,139 @@ extern "C" {
     pub static mut IntervalTimer_consts_PIT_ISR:
                [::std::option::Option<unsafe extern "C" fn()>; 4usize];
 }
+#[repr(C)]
+#[derive(Debug, Copy)]
+pub struct SPISettings {
+    pub ctar: u32,
+}
+impl ::std::clone::Clone for SPISettings {
+    fn clone(&self) -> Self { *self }
+}
+#[test]
+fn bindgen_test_layout_SPISettings() {
+    assert_eq!(::std::mem::size_of::<SPISettings>() , 4usize);
+    assert_eq!(::std::mem::align_of::<SPISettings>() , 4usize);
+}
+extern "C" {
+    #[link_name = "_ZN11SPISettings14ctar_div_tableE"]
+    pub static mut SPISettings_consts_ctar_div_table:
+               [::std::os::raw::c_ushort; 23usize];
+    #[link_name = "_ZN11SPISettings16ctar_clock_tableE"]
+    pub static mut SPISettings_consts_ctar_clock_table:
+               [::std::os::raw::c_uint; 23usize];
+}
+#[repr(C)]
+#[derive(Debug, Copy)]
+pub struct SPIClass;
+impl ::std::clone::Clone for SPIClass {
+    fn clone(&self) -> Self { *self }
+}
+extern "C" {
+    fn _ZN8SPIClass5beginEv();
+    fn _ZN8SPIClass14usingInterruptEh(n: u8);
+    fn _ZN8SPIClass14usingInterruptE12IRQ_NUMBER_t(interruptName:
+                                                       IRQ_NUMBER_t);
+    fn _ZN8SPIClass17notUsingInterruptE12IRQ_NUMBER_t(interruptName:
+                                                          IRQ_NUMBER_t);
+    fn _ZN8SPIClass16beginTransactionE11SPISettings(settings: SPISettings);
+    fn _ZN8SPIClass8transferEh(data: u8) -> u8;
+    fn _ZN8SPIClass10transfer16Et(data: u16) -> u16;
+    fn _ZN8SPIClass8transferEPvj(buf: *mut ::std::os::raw::c_void,
+                                 count: usize);
+    fn _ZN8SPIClass14endTransactionEv();
+    fn _ZN8SPIClass3endEv();
+    fn _ZN8SPIClass11setBitOrderEh(bitOrder: u8);
+    fn _ZN8SPIClass11setDataModeEh(dataMode: u8);
+    fn _ZN8SPIClass15setClockDividerEh(clockDiv: u8);
+    fn _ZN8SPIClass24setClockDivider_noInlineEj(clk: u32);
+    fn _ZN8SPIClass15attachInterruptEv();
+    fn _ZN8SPIClass15detachInterruptEv();
+    fn _ZN8SPIClass7setMOSIEh(pin: u8);
+    fn _ZN8SPIClass7setMISOEh(pin: u8);
+    fn _ZN8SPIClass6setSCKEh(pin: u8);
+    fn _ZN8SPIClass15pinIsChipSelectEh(pin: u8) -> u8;
+    fn _ZN8SPIClass15pinIsChipSelectEhh(pin1: u8, pin2: u8) -> bool;
+    fn _ZN8SPIClass5setCSEh(pin: u8) -> u8;
+}
+impl SPIClass {
+    #[inline]
+    pub unsafe fn begin() { _ZN8SPIClass5beginEv() }
+    #[inline]
+    pub unsafe fn usingInterrupt(n: u8) { _ZN8SPIClass14usingInterruptEh(n) }
+    #[inline]
+    pub unsafe fn usingInterrupt1(interruptName: IRQ_NUMBER_t) {
+        _ZN8SPIClass14usingInterruptE12IRQ_NUMBER_t(interruptName)
+    }
+    #[inline]
+    pub unsafe fn notUsingInterrupt(interruptName: IRQ_NUMBER_t) {
+        _ZN8SPIClass17notUsingInterruptE12IRQ_NUMBER_t(interruptName)
+    }
+    #[inline]
+    pub unsafe fn beginTransaction(settings: SPISettings) {
+        _ZN8SPIClass16beginTransactionE11SPISettings(settings)
+    }
+    #[inline]
+    pub unsafe fn transfer(data: u8) -> u8 { _ZN8SPIClass8transferEh(data) }
+    #[inline]
+    pub unsafe fn transfer16(data: u16) -> u16 {
+        _ZN8SPIClass10transfer16Et(data)
+    }
+    #[inline]
+    pub unsafe fn transfer1(buf: *mut ::std::os::raw::c_void, count: usize) {
+        _ZN8SPIClass8transferEPvj(buf, count)
+    }
+    #[inline]
+    pub unsafe fn endTransaction() { _ZN8SPIClass14endTransactionEv() }
+    #[inline]
+    pub unsafe fn end() { _ZN8SPIClass3endEv() }
+    #[inline]
+    pub unsafe fn setBitOrder(bitOrder: u8) {
+        _ZN8SPIClass11setBitOrderEh(bitOrder)
+    }
+    #[inline]
+    pub unsafe fn setDataMode(dataMode: u8) {
+        _ZN8SPIClass11setDataModeEh(dataMode)
+    }
+    #[inline]
+    pub unsafe fn setClockDivider(clockDiv: u8) {
+        _ZN8SPIClass15setClockDividerEh(clockDiv)
+    }
+    #[inline]
+    pub unsafe fn setClockDivider_noInline(clk: u32) {
+        _ZN8SPIClass24setClockDivider_noInlineEj(clk)
+    }
+    #[inline]
+    pub unsafe fn attachInterrupt() { _ZN8SPIClass15attachInterruptEv() }
+    #[inline]
+    pub unsafe fn detachInterrupt() { _ZN8SPIClass15detachInterruptEv() }
+    #[inline]
+    pub unsafe fn setMOSI(pin: u8) { _ZN8SPIClass7setMOSIEh(pin) }
+    #[inline]
+    pub unsafe fn setMISO(pin: u8) { _ZN8SPIClass7setMISOEh(pin) }
+    #[inline]
+    pub unsafe fn setSCK(pin: u8) { _ZN8SPIClass6setSCKEh(pin) }
+    #[inline]
+    pub unsafe fn pinIsChipSelect(pin: u8) -> u8 {
+        _ZN8SPIClass15pinIsChipSelectEh(pin)
+    }
+    #[inline]
+    pub unsafe fn pinIsChipSelect1(pin1: u8, pin2: u8) -> bool {
+        _ZN8SPIClass15pinIsChipSelectEhh(pin1, pin2)
+    }
+    #[inline]
+    pub unsafe fn setCS(pin: u8) -> u8 { _ZN8SPIClass5setCSEh(pin) }
+}
+extern "C" {
+    #[link_name = "_ZN8SPIClass18interruptMasksUsedE"]
+    pub static mut SPIClass_consts_interruptMasksUsed:
+               ::std::os::raw::c_uchar;
+    #[link_name = "_ZN8SPIClass13interruptMaskE"]
+    pub static mut SPIClass_consts_interruptMask:
+               [::std::os::raw::c_uint; 3usize];
+    #[link_name = "_ZN8SPIClass13interruptSaveE"]
+    pub static mut SPIClass_consts_interruptSave:
+               [::std::os::raw::c_uint; 3usize];
+}
 extern "C" {
     pub static mut _VectorsRam:
                [::std::option::Option<unsafe extern "C" fn()>; 111usize];
@@ -3235,6 +3384,7 @@ extern "C" {
     pub static mut Serial: usb_serial_class;
     pub static mut keycodes_ascii: *const ::std::os::raw::c_uchar;
     pub static mut keycodes_iso_8859_1: *const ::std::os::raw::c_uchar;
+    pub static mut SPI: SPIClass;
 }
 extern "C" {
     pub fn eeprom_initialize();
