@@ -55,24 +55,62 @@ fn spi_read(address: u8) -> u8 {
     }
 }
 
-fn spi_read_binary_coded_decimal(address: u8) -> u8 {
-    let n = spi_read(address);
+fn spi_write(address: u8, data: &[u8]) {
+    unsafe {
+        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::LOW as u8);
+        SPIClass::transfer(address);
+        for &byte in data {
+            SPIClass::transfer(byte);
+        }
+        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::HIGH as u8);
+    }
+}
+
+/// Binary-Coded Decimal
+fn bcd_decode(n: u8) -> u8 {
     (n >> 4) * 10 + (n & 0xF)
 }
 
+fn bcd_encode(n: u8) -> u8 {
+    assert!(n < 100);
+    (n / 10) << 4 | (n % 10)
+}
+
 fn rtc_get() -> DateTime<Utc> {
-    let second = spi_read_binary_coded_decimal(0x00);
-    let minute = spi_read_binary_coded_decimal(0x01);
-    let hour = spi_read_binary_coded_decimal(0x02);
-    let day = spi_read_binary_coded_decimal(0x03);
-    let month = Month::from_number(spi_read_binary_coded_decimal(0x04)).unwrap();
-    let year = 2000 + i32::from(spi_read_binary_coded_decimal(0x05));
+    let second = bcd_decode(spi_read(0x00));
+    let minute = bcd_decode(spi_read(0x01));
+    let hour = bcd_decode(spi_read(0x02));
+    let day = bcd_decode(spi_read(0x03));
+    let month = Month::from_number(bcd_decode(spi_read(0x04))).unwrap();
+    let year = 2000 + i32::from(bcd_decode(spi_read(0x05)));
     DateTime::new(Utc, year, month, day, hour, minute, second)
+}
+
+fn rtc_set(datetime: &DateTime<Utc>) {
+    spi_write(0x80, &[
+        bcd_encode(datetime.second()),
+        bcd_encode(datetime.minute()),
+        bcd_encode(datetime.hour()),
+        bcd_encode(datetime.day()),
+        bcd_encode(datetime.month().to_number()),
+        bcd_encode((datetime.year() - 2000) as u8),
+    ])
 }
 
 #[no_mangle]
 pub extern fn rtc_print() {
     println!("Current RTC datetime: {:?}", rtc_get());
+}
+
+#[no_mangle]
+pub extern fn rtc_sync() {
+    let year = read_int(b'-') as i32;
+    let month = Month::from_number(read_int(b'-') as u8).unwrap();
+    let day = read_int(b' ') as u8;
+    let hour = read_int(b':') as u8;
+    let minute = read_int(b':') as u8;
+    let second = read_int(b'\n') as u8;
+    rtc_set(&DateTime::new(Utc, year, month, day, hour, minute, second))
 }
 
 mod std {

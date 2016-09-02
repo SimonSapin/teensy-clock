@@ -7,6 +7,7 @@ extern "C" {
     uint32_t read_int(uint8_t separator);
     void rust_init();
     void rtc_print();
+    void rtc_sync();
 }
 
 const int SPI_CHIP_SELECT = 6;
@@ -80,35 +81,10 @@ extern "C" int main(void) {
             if (byte == '@') {
                 Serial.print("Got integer: ");
                 Serial.println(read_int('\n'));
-            } else if (byte == 'g') {  // get
+            } else if (byte == 'g') {
                 rtc_print();
-            } else if (byte == 's') {  // set
-                TimeDate[6] = read_int('-') % 100;
-                TimeDate[5] = read_int('-');
-                TimeDate[4] = read_int(' ');
-
-                TimeDate[2] = read_int(':');
-                TimeDate[1] = read_int(':');
-                TimeDate[0] = read_int('\n');
-
-                for(int i=0; i<=6;i++){
-                    if(i==3)
-                        i++;
-                    int b= TimeDate[i]/10;
-                    int a= TimeDate[i]-b*10;
-                    if(i==2){
-                        if (b==2)
-                            b=B00000010;
-                        else if (b==1)
-                            b=B00000001;
-                    }
-                    TimeDate[i]= a+(b<<4);
-
-                    digitalWrite(SPI_CHIP_SELECT, LOW);
-                    SPI.transfer(i+0x80);
-                    SPI.transfer(TimeDate[i]);
-                    digitalWrite(SPI_CHIP_SELECT, HIGH);
-                }
+            } else if (byte == 's') {
+                rtc_sync();
             }
         }
     }
