@@ -6,6 +6,7 @@
 extern "C" {
     uint32_t read_int(uint8_t separator);
     void rust_init();
+    void rtc_print();
 }
 
 const int SPI_CHIP_SELECT = 6;
@@ -80,19 +81,7 @@ extern "C" int main(void) {
                 Serial.print("Got integer: ");
                 Serial.println(read_int('\n'));
             } else if (byte == 'g') {  // get
-                Serial.print("Current RTC datetime: ");
-                Serial.print(TimeDate[6]);
-                Serial.print("-");
-                Serial.print(TimeDate[5]);
-                Serial.print("-");
-                Serial.print(TimeDate[4]);
-                Serial.print(" ");
-
-                Serial.print(TimeDate[2]);
-                Serial.print(":");
-                Serial.print(TimeDate[1]);
-                Serial.print(":");
-                Serial.println(TimeDate[0]);
+                rtc_print();
             } else if (byte == 's') {  // set
                 TimeDate[6] = read_int('-') % 100;
                 TimeDate[5] = read_int('-');

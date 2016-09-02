@@ -5,3 +5,6 @@ authors = ["Simon Sapin <simon.sapin@exyr.org>"]
 
 [lib]
 crate-type = ["staticlib"]
+
+[dependencies]
+gregor = { path = "../gregor" }
