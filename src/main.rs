@@ -1,11 +1,9 @@
 #![feature(lang_items)]
 #![no_std]
+#![no_main]
 
 extern crate gregor;
-
-#[allow(dead_code, non_snake_case, non_camel_case_types, non_upper_case_globals, improper_ctypes)]
-#[path = "bindings.rs"]
-mod teensy3;
+extern crate teensy3;
 
 #[macro_use]
 mod serial;
@@ -21,7 +19,7 @@ use serial::Serial;
 use square_wave::SquareWave;
 
 #[no_mangle]
-pub extern fn main() {
+pub extern fn main() -> ! {
     if false {
         clock_main()
     }
@@ -78,25 +76,6 @@ fn clock_main() {
 
 fn read_int(delimiter: u8) -> u32 {
     Serial.try_read_int_until(delimiter).unwrap()
-}
-
-mod std {
-    pub use core::*;
-    pub mod os {
-        #[allow(non_camel_case_types)]
-        pub mod raw {
-            pub enum c_void {}
-            pub type c_uchar = u8;
-            pub type c_short = i16;
-            pub type c_ushort = u16;
-            pub type c_int = i32;
-            pub type c_uint = u32;
-            pub type c_long = i32;
-            pub type c_ulong = u32;
-            pub type c_longlong = i64;
-            pub type c_ulonglong = u64;
-        }
-    }
 }
 
 #[lang = "panic_fmt"]
