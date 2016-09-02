@@ -8,6 +8,7 @@ extern "C" {
     void rust_init();
     void rtc_print();
     void rtc_sync();
+    void update_display();
 }
 
 const int SPI_CHIP_SELECT = 6;
@@ -21,10 +22,6 @@ void tick() {
 extern "C" int main(void) {
     rust_init();
 
-//    Adafruit_7segment display;
-//    display.begin(0x70);
-//    display.setBrightness(3);
-
     attachInterrupt(digitalPinToInterrupt(10), tick, RISING);
 
     uint32_t TimeDate [7]; //second,minute,hour,null,day,month,year
@@ -32,47 +29,7 @@ extern "C" int main(void) {
         if (ticked) {
             ticked = false;
 
-            for(int i=0; i<=6;i++){
-                if(i==3)
-                    i++;
-                digitalWrite(SPI_CHIP_SELECT, LOW);
-                SPI.transfer(i+0x00);
-                unsigned int n = SPI.transfer(0x00);
-                digitalWrite(SPI_CHIP_SELECT, HIGH);
-                int a=n & B00001111;
-                if(i==2){
-                    int b=(n & B00110000)>>4; //24 hour mode
-                    if(b==B00000010)
-                        b=20;
-                    else if(b==B00000001)
-                        b=10;
-                    TimeDate[i]=a+b;
-                }
-                else if(i==4){
-                    int b=(n & B00110000)>>4;
-                    TimeDate[i]=a+b*10;
-                }
-                else if(i==5){
-                    int b=(n & B00010000)>>4;
-                    TimeDate[i]=a+b*10;
-                }
-                else if(i==6){
-                    int b=(n & B11110000)>>4;
-                    TimeDate[i]=a+b*10;
-                }
-                else{
-                    int b=(n & B01110000)>>4;
-                    TimeDate[i]=a+b*10;
-                }
-            }
-
-//            display.print(TimeDate[0] + TimeDate[1] * 100 , DEC);
-//            display.drawColon(true);
-//            display.writeDisplay();
-
-            digitalWriteFast(13, HIGH);
-            delay(10);
-            digitalWriteFast(13, LOW);
+            update_display();
         }
 
         if (Serial.available()) {
