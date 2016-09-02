@@ -1186,6 +1186,8 @@ pub const SPI_MODE_MASK: ::std::os::raw::c_uint = 12;
 pub const SPI_CLOCK_MASK: ::std::os::raw::c_uint = 3;
 pub const SPI_2XCLOCK_MASK: ::std::os::raw::c_uint = 1;
 pub const SPI_HAS_NOTUSINGINTERRUPT: ::std::os::raw::c_uint = 1;
+pub const BUFFER_LENGTH: ::std::os::raw::c_uint = 32;
+pub const WIRE_HAS_END: ::std::os::raw::c_uint = 1;
 pub type prog_void = ::std::os::raw::c_void;
 pub type prog_char = ::std::os::raw::c_uchar;
 pub type prog_uchar = ::std::os::raw::c_uchar;
@@ -3346,6 +3348,224 @@ extern "C" {
     pub static mut SPIClass_consts_interruptSave:
                [::std::os::raw::c_uint; 3usize];
 }
+#[repr(C)]
+#[derive(Debug, Copy)]
+pub struct TwoWire {
+    pub _base: Stream,
+}
+#[repr(C)]
+pub struct _vftable_TwoWire {
+    pub _base: _vftable_Stream,
+    pub write: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
+                                    arg1: u8) -> usize,
+    pub write1: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void,
+                                     arg1: *const u8, arg2: usize) -> usize,
+    pub available: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void)
+                       -> ::std::os::raw::c_int,
+    pub read: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void)
+                  -> ::std::os::raw::c_int,
+    pub peek: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void)
+                  -> ::std::os::raw::c_int,
+    pub flush: unsafe extern "C" fn(this: *mut ::std::os::raw::c_void),
+}
+impl ::std::clone::Clone for TwoWire {
+    fn clone(&self) -> Self { *self }
+}
+#[test]
+fn bindgen_test_layout_TwoWire() {
+    assert_eq!(::std::mem::size_of::<TwoWire>() , 16usize);
+    assert_eq!(::std::mem::align_of::<TwoWire>() , 4usize);
+}
+extern "C" {
+    fn _ZN7TwoWire5beginEv(this: *mut TwoWire);
+    fn _ZN7TwoWire5beginEh(this: *mut TwoWire, arg1: u8);
+    fn _ZN7TwoWire5beginEi(this: *mut TwoWire, arg1: ::std::os::raw::c_int);
+    fn _ZN7TwoWire3endEv(this: *mut TwoWire);
+    fn _ZN7TwoWire8setClockEj(this: *mut TwoWire, arg1: u32);
+    fn _ZN7TwoWire6setSDAEh(this: *mut TwoWire, arg1: u8);
+    fn _ZN7TwoWire6setSCLEh(this: *mut TwoWire, arg1: u8);
+    fn _ZN7TwoWire17beginTransmissionEh(this: *mut TwoWire, arg1: u8);
+    fn _ZN7TwoWire17beginTransmissionEi(this: *mut TwoWire,
+                                        arg1: ::std::os::raw::c_int);
+    fn _ZN7TwoWire15endTransmissionEv(this: *mut TwoWire) -> u8;
+    fn _ZN7TwoWire15endTransmissionEh(this: *mut TwoWire, arg1: u8) -> u8;
+    fn _ZN7TwoWire11requestFromEhh(this: *mut TwoWire, arg1: u8, arg2: u8)
+     -> u8;
+    fn _ZN7TwoWire11requestFromEhhh(this: *mut TwoWire, arg1: u8, arg2: u8,
+                                    arg3: u8) -> u8;
+    fn _ZN7TwoWire11requestFromEii(this: *mut TwoWire,
+                                   arg1: ::std::os::raw::c_int,
+                                   arg2: ::std::os::raw::c_int) -> u8;
+    fn _ZN7TwoWire11requestFromEiii(this: *mut TwoWire,
+                                    arg1: ::std::os::raw::c_int,
+                                    arg2: ::std::os::raw::c_int,
+                                    arg3: ::std::os::raw::c_int) -> u8;
+    fn _ZN7TwoWire9onReceiveEPFviE(this: *mut TwoWire,
+                                   arg1:
+                                       ::std::option::Option<unsafe extern "C" fn(arg1:
+                                                                                      ::std::os::raw::c_int)>);
+    fn _ZN7TwoWire9onRequestEPFvvE(this: *mut TwoWire,
+                                   arg1:
+                                       ::std::option::Option<unsafe extern "C" fn()>);
+    fn _ZN7TwoWire4sendEh(this: *mut TwoWire, b: u8);
+    fn _ZN7TwoWire4sendEPhh(this: *mut TwoWire, s: *mut u8, n: u8);
+    fn _ZN7TwoWire4sendEi(this: *mut TwoWire, n: ::std::os::raw::c_int);
+    fn _ZN7TwoWire4sendEPc(this: *mut TwoWire,
+                           s: *mut ::std::os::raw::c_uchar);
+    fn _ZN7TwoWire7receiveEv(this: *mut TwoWire) -> u8;
+    fn _ZN7TwoWire5writeEm(this: *mut TwoWire, n: ::std::os::raw::c_ulong)
+     -> usize;
+    fn _ZN7TwoWire5writeEl(this: *mut TwoWire, n: ::std::os::raw::c_long)
+     -> usize;
+    fn _ZN7TwoWire5writeEj(this: *mut TwoWire, n: ::std::os::raw::c_uint)
+     -> usize;
+    fn _ZN7TwoWire5writeEi(this: *mut TwoWire, n: ::std::os::raw::c_int)
+     -> usize;
+}
+impl TwoWire {
+    #[inline]
+    pub unsafe fn begin(&mut self) { _ZN7TwoWire5beginEv(&mut *self) }
+    #[inline]
+    pub unsafe fn begin1(&mut self, arg1: u8) {
+        _ZN7TwoWire5beginEh(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn begin2(&mut self, arg1: ::std::os::raw::c_int) {
+        _ZN7TwoWire5beginEi(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn end(&mut self) { _ZN7TwoWire3endEv(&mut *self) }
+    #[inline]
+    pub unsafe fn setClock(&mut self, arg1: u32) {
+        _ZN7TwoWire8setClockEj(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn setSDA(&mut self, arg1: u8) {
+        _ZN7TwoWire6setSDAEh(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn setSCL(&mut self, arg1: u8) {
+        _ZN7TwoWire6setSCLEh(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn beginTransmission(&mut self, arg1: u8) {
+        _ZN7TwoWire17beginTransmissionEh(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn beginTransmission1(&mut self, arg1: ::std::os::raw::c_int) {
+        _ZN7TwoWire17beginTransmissionEi(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn endTransmission(&mut self) -> u8 {
+        _ZN7TwoWire15endTransmissionEv(&mut *self)
+    }
+    #[inline]
+    pub unsafe fn endTransmission1(&mut self, arg1: u8) -> u8 {
+        _ZN7TwoWire15endTransmissionEh(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn requestFrom(&mut self, arg1: u8, arg2: u8) -> u8 {
+        _ZN7TwoWire11requestFromEhh(&mut *self, arg1, arg2)
+    }
+    #[inline]
+    pub unsafe fn requestFrom1(&mut self, arg1: u8, arg2: u8, arg3: u8)
+     -> u8 {
+        _ZN7TwoWire11requestFromEhhh(&mut *self, arg1, arg2, arg3)
+    }
+    #[inline]
+    pub unsafe fn requestFrom2(&mut self, arg1: ::std::os::raw::c_int,
+                               arg2: ::std::os::raw::c_int) -> u8 {
+        _ZN7TwoWire11requestFromEii(&mut *self, arg1, arg2)
+    }
+    #[inline]
+    pub unsafe fn requestFrom3(&mut self, arg1: ::std::os::raw::c_int,
+                               arg2: ::std::os::raw::c_int,
+                               arg3: ::std::os::raw::c_int) -> u8 {
+        _ZN7TwoWire11requestFromEiii(&mut *self, arg1, arg2, arg3)
+    }
+    #[inline]
+    pub unsafe fn onReceive(&mut self,
+                            arg1:
+                                ::std::option::Option<unsafe extern "C" fn(arg1:
+                                                                               ::std::os::raw::c_int)>) {
+        _ZN7TwoWire9onReceiveEPFviE(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn onRequest(&mut self,
+                            arg1:
+                                ::std::option::Option<unsafe extern "C" fn()>) {
+        _ZN7TwoWire9onRequestEPFvvE(&mut *self, arg1)
+    }
+    #[inline]
+    pub unsafe fn send(&mut self, b: u8) { _ZN7TwoWire4sendEh(&mut *self, b) }
+    #[inline]
+    pub unsafe fn send1(&mut self, s: *mut u8, n: u8) {
+        _ZN7TwoWire4sendEPhh(&mut *self, s, n)
+    }
+    #[inline]
+    pub unsafe fn send2(&mut self, n: ::std::os::raw::c_int) {
+        _ZN7TwoWire4sendEi(&mut *self, n)
+    }
+    #[inline]
+    pub unsafe fn send3(&mut self, s: *mut ::std::os::raw::c_uchar) {
+        _ZN7TwoWire4sendEPc(&mut *self, s)
+    }
+    #[inline]
+    pub unsafe fn receive(&mut self) -> u8 {
+        _ZN7TwoWire7receiveEv(&mut *self)
+    }
+    #[inline]
+    pub unsafe fn write(&mut self, n: ::std::os::raw::c_ulong) -> usize {
+        _ZN7TwoWire5writeEm(&mut *self, n)
+    }
+    #[inline]
+    pub unsafe fn write1(&mut self, n: ::std::os::raw::c_long) -> usize {
+        _ZN7TwoWire5writeEl(&mut *self, n)
+    }
+    #[inline]
+    pub unsafe fn write2(&mut self, n: ::std::os::raw::c_uint) -> usize {
+        _ZN7TwoWire5writeEj(&mut *self, n)
+    }
+    #[inline]
+    pub unsafe fn write3(&mut self, n: ::std::os::raw::c_int) -> usize {
+        _ZN7TwoWire5writeEi(&mut *self, n)
+    }
+}
+extern "C" {
+    #[link_name = "_ZN7TwoWire8rxBufferE"]
+    pub static mut TwoWire_consts_rxBuffer: *mut ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire13rxBufferIndexE"]
+    pub static mut TwoWire_consts_rxBufferIndex: ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire14rxBufferLengthE"]
+    pub static mut TwoWire_consts_rxBufferLength: ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire9txAddressE"]
+    pub static mut TwoWire_consts_txAddress: ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire8txBufferE"]
+    pub static mut TwoWire_consts_txBuffer: *mut ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire13txBufferIndexE"]
+    pub static mut TwoWire_consts_txBufferIndex: ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire14txBufferLengthE"]
+    pub static mut TwoWire_consts_txBufferLength: ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire12transmittingE"]
+    pub static mut TwoWire_consts_transmitting: ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire14user_onRequestE"]
+    pub static mut TwoWire_consts_user_onRequest:
+               ::std::option::Option<unsafe extern "C" fn()>;
+    #[link_name = "_ZN7TwoWire14user_onReceiveE"]
+    pub static mut TwoWire_consts_user_onReceive:
+               ::std::option::Option<unsafe extern "C" fn(arg1:
+                                                              ::std::os::raw::c_int)>;
+    #[link_name = "_ZN7TwoWire11sda_pin_numE"]
+    pub static mut TwoWire_consts_sda_pin_num: ::std::os::raw::c_uchar;
+    #[link_name = "_ZN7TwoWire11scl_pin_numE"]
+    pub static mut TwoWire_consts_scl_pin_num: ::std::os::raw::c_uchar;
+}
+#[repr(C)]
+#[derive(Debug, Copy)]
+pub struct TWBRemulation;
+impl ::std::clone::Clone for TWBRemulation {
+    fn clone(&self) -> Self { *self }
+}
 extern "C" {
     pub static mut _VectorsRam:
                [::std::option::Option<unsafe extern "C" fn()>; 111usize];
@@ -3385,6 +3605,8 @@ extern "C" {
     pub static mut keycodes_ascii: *const ::std::os::raw::c_uchar;
     pub static mut keycodes_iso_8859_1: *const ::std::os::raw::c_uchar;
     pub static mut SPI: SPIClass;
+    pub static mut Wire: TwoWire;
+    pub static mut TWBR: TWBRemulation;
 }
 extern "C" {
     pub fn eeprom_initialize();
@@ -3759,4 +3981,5 @@ extern "C" {
     pub fn memcpy(dst: *mut ::std::os::raw::c_void,
                   src: *const ::std::os::raw::c_void, count: usize)
      -> *mut ::std::os::raw::c_void;
+    pub fn i2c0_isr1();
 }
