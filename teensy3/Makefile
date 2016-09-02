@@ -61,7 +61,7 @@ endif
 #************************************************************************
 
 # CPPFLAGS = compiler options for C and C++
-CPPFLAGS = -Wall -g -Os -mcpu=cortex-m4 -mthumb -MMD $(OPTIONS) -I. -I../adafruit
+CPPFLAGS = -Wall -g -Os -mcpu=cortex-m4 -mthumb -MMD $(OPTIONS) -I.
 
 # compiler options for C++ only
 CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti -fkeep-inline-functions
@@ -84,8 +84,8 @@ SIZE = $(COMPILERPATH)/arm-none-eabi-size
 
 # automatically create lists of the sources and objects
 # TODO: this does not handle Arduino libraries yet...
-C_FILES := $(wildcard *.c) $(wildcard ../adafruit/*.c)
-CPP_FILES := $(wildcard *.cpp) $(wildcard ../adafruit/*.cpp) ../main.cpp
+C_FILES := $(wildcard *.c)
+CPP_FILES := $(wildcard *.cpp) ../main.cpp
 OBJS := $(C_FILES:.c=.o) $(CPP_FILES:.cpp=.o)
 
 RUST_LIB = ../target/thumbv7em-none-eabi/release/libclock.a

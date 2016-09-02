@@ -1,6 +1,5 @@
 #include "WProgram.h"
 #define SERIAL_HEX HEX
-#include "Adafruit_LEDBackpack.h"
 #include "SPI.h"
 
 extern "C" {
