@@ -7,7 +7,35 @@ mod bindings;
 #[macro_use]
 mod serial;
 
+use bindings::SPIClass;
 use serial::Serial;
+
+const LED_PIN: u8 = 13;
+const SQUARE_WAVE_PIN: u8 = 10;
+const SPI_CHIP_SELECT_PIN: u8 = 6;
+const SPI_MOSI_PIN: u8 = 7;
+const SPI_MISO_PIN: u8 = 8;
+const SPI_SCK_PIN: u8 = 14;
+
+#[no_mangle]
+pub extern fn rust_init() {
+    unsafe {
+        bindings::pinMode(LED_PIN, bindings::OUTPUT as u8);
+        bindings::pinMode(SQUARE_WAVE_PIN, bindings::INPUT_PULLUP as u8);
+
+        bindings::pinMode(SPI_CHIP_SELECT_PIN, bindings::OUTPUT as u8);
+        SPIClass::setMOSI(SPI_MOSI_PIN);
+        SPIClass::setMISO(SPI_MISO_PIN);
+        SPIClass::setSCK(SPI_SCK_PIN);
+        SPIClass::begin();
+        SPIClass::setBitOrder(bindings::MSBFIRST as u8);
+        SPIClass::setDataMode(bindings::SPI_MODE1 as u8);
+        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::LOW as u8);
+        SPIClass::transfer(0x8E);
+        SPIClass::transfer(0x20);
+        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::HIGH as u8);
+    }
+}
 
 #[no_mangle]
 pub extern fn read_int(delimiter: u8) -> u32 {

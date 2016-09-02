@@ -5,6 +5,7 @@
 
 extern "C" {
     uint32_t read_int(uint8_t separator);
+    void rust_init();
 }
 
 const int SPI_CHIP_SELECT = 6;
@@ -16,30 +17,13 @@ void tick() {
 }
 
 extern "C" int main(void) {
-    pinMode(13, OUTPUT);
+    rust_init();
 
-    Serial.begin(9600);
+//    Adafruit_7segment display;
+//    display.begin(0x70);
+//    display.setBrightness(3);
 
-    Adafruit_7segment display;
-    display.begin(0x70);
-    display.setBrightness(3);
-
-    pinMode(10, INPUT_PULLUP);
     attachInterrupt(digitalPinToInterrupt(10), tick, RISING);
-
-    pinMode(SPI_CHIP_SELECT, OUTPUT);
-    SPI.setMOSI(7);
-    SPI.setMISO(8);
-    SPI.setSCK(14);
-    SPI.begin();
-    SPI.setBitOrder(MSBFIRST);
-    SPI.setDataMode(SPI_MODE1); // both mode 1 & 3 should work
-    //set control register
-    digitalWrite(SPI_CHIP_SELECT, LOW);
-    SPI.transfer(0x8E);
-    SPI.transfer(0x20);
-    digitalWrite(SPI_CHIP_SELECT, HIGH);
-    delay(10);
 
     uint32_t TimeDate [7]; //second,minute,hour,null,day,month,year
     while (1) {
@@ -80,9 +64,9 @@ extern "C" int main(void) {
                 }
             }
 
-            display.print(TimeDate[0] + TimeDate[1] * 100 , DEC);
-            display.drawColon(true);
-            display.writeDisplay();
+//            display.print(TimeDate[0] + TimeDate[1] * 100 , DEC);
+//            display.drawColon(true);
+//            display.writeDisplay();
 
             digitalWriteFast(13, HIGH);
             delay(10);

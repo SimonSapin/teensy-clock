@@ -1,13 +1,13 @@
 SERIAL_DEVICE = /dev/ttyACM0
 
 hex: rust
-	@make --quiet -C teensy3 NO_ARDUINO=1
+	@make --no-print-directory -C teensy3 NO_ARDUINO=1
 
 flash: hex
 	teensy-loader-cli -w -s --mcu=mk20dx256 teensy3/main.hex
 
 rust:
-	cargo build --release
+	@cargo build --release
 
 bindgen:
 	PATH="/home/simon/projects/servo/ports/geckolib/binding_tools/rust-bindgen/target/debug:$$PATH" \

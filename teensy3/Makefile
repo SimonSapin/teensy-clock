@@ -64,7 +64,7 @@ endif
 CPPFLAGS = -Wall -g -Os -mcpu=cortex-m4 -mthumb -MMD $(OPTIONS) -I. -I../adafruit
 
 # compiler options for C++ only
-CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti
+CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti -fkeep-inline-functions
 
 # compiler options for C only
 CFLAGS =
@@ -96,7 +96,7 @@ RUST_LIB = ../target/thumbv7em-none-eabi/release/libclock.a
 all: $(TARGET).hex
 
 $(TARGET).elf: $(OBJS) $(MCU_LD) $(RUST_LIB) Makefile
-	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(RUST_LIB) $(LIBS)
+	@$(CC) $(LDFLAGS) -o $@ $(OBJS) $(RUST_LIB) $(LIBS)
 
 %.hex: %.elf
 #	$(SIZE) $<
