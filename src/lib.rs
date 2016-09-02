@@ -45,13 +45,14 @@ pub extern fn read_int(delimiter: u8) -> u32 {
     Serial.try_read_int_until(delimiter).unwrap()
 }
 
-fn spi_read(address: u8) -> u8 {
+fn spi_read(address: u8, data: &mut [u8]) {
     unsafe {
         bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::LOW as u8);
         SPIClass::transfer(address);
-        let result = SPIClass::transfer(0);
+        for byte in data {
+            *byte = SPIClass::transfer(0);
+        }
         bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::HIGH as u8);
-        result
     }
 }
 
@@ -77,12 +78,15 @@ fn bcd_encode(n: u8) -> u8 {
 }
 
 fn rtc_get() -> DateTime<Utc> {
-    let second = bcd_decode(spi_read(0x00));
-    let minute = bcd_decode(spi_read(0x01));
-    let hour = bcd_decode(spi_read(0x02));
-    let day = bcd_decode(spi_read(0x03));
-    let month = Month::from_number(bcd_decode(spi_read(0x04))).unwrap();
-    let year = 2000 + i32::from(bcd_decode(spi_read(0x05)));
+    let mut data = [0, 0, 0, 0, 0, 0, 0];
+    spi_read(0x00, &mut data);
+    let second = bcd_decode(data[0]);
+    let minute = bcd_decode(data[1]);
+    let hour = bcd_decode(data[2]);
+    // data[3] is the day of the week, but we don’t rely on the RTC for that.
+    let day = bcd_decode(data[4]);
+    let month = Month::from_number(bcd_decode(data[5])).unwrap();
+    let year = 2000 + i32::from(bcd_decode(data[6]));
     DateTime::new(Utc, year, month, day, hour, minute, second)
 }
 
@@ -91,6 +95,7 @@ fn rtc_set(datetime: &DateTime<Utc>) {
         bcd_encode(datetime.second()),
         bcd_encode(datetime.minute()),
         bcd_encode(datetime.hour()),
+        0,  // Day of the week, unused
         bcd_encode(datetime.day()),
         bcd_encode(datetime.month().to_number()),
         bcd_encode((datetime.year() - 2000) as u8),
