@@ -19,7 +19,7 @@ ARDUINOPATH ?= ../../../../..
 endif
 
 # configurable options
-OPTIONS = -DF_CPU=48000000 -DUSB_SERIAL -DLAYOUT_US_ENGLISH -DUSING_MAKEFILE
+OPTIONS = -DF_CPU=48000000 -DUSB_SERIAL -DLAYOUT_US_ENGLISH -DUSING_MAKEFILE -DCORE_TEENSY
 
 # options needed by many Arduino libraries to configure for Teensy 3.0
 OPTIONS += -D__$(MCU)__ -DARDUINO=10600 -DTEENSYDUINO=121
@@ -85,7 +85,7 @@ SIZE = $(COMPILERPATH)/arm-none-eabi-size
 # automatically create lists of the sources and objects
 # TODO: this does not handle Arduino libraries yet...
 C_FILES := $(wildcard *.c)
-CPP_FILES := $(wildcard *.cpp) ../main.cpp
+CPP_FILES := $(wildcard *.cpp)
 OBJS := $(C_FILES:.c=.o) $(CPP_FILES:.cpp=.o)
 
 RUST_LIB = ../target/thumbv7em-none-eabi/release/libclock.a
@@ -100,7 +100,7 @@ $(TARGET).elf: $(OBJS) $(MCU_LD) $(RUST_LIB) Makefile
 
 %.hex: %.elf
 #	$(SIZE) $<
-	$(OBJCOPY) -O ihex -R .eeprom $< $@
+	@$(OBJCOPY) -O ihex -R .eeprom $< $@
 ifneq (,$(wildcard $(TOOLSPATH)))
 	$(TOOLSPATH)/teensy_post_compile -file=$(basename $@) -path=$(shell pwd) -tools=$(TOOLSPATH)
 	-$(TOOLSPATH)/teensy_reboot

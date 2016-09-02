@@ -6,6 +6,12 @@ use core::fmt;
 pub struct Serial;
 
 impl Serial {
+    pub fn readable(self) -> bool {
+        unsafe {
+            bindings::usb_serial_available() > 0
+        }
+    }
+
     pub fn read_byte(self) -> u8 {
         self.try_read_byte().unwrap()
     }

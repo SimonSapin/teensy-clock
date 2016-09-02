@@ -10,6 +10,7 @@ mod bindings;
 mod serial;
 
 use bindings::{SPIClass, Wire};
+use core::ptr;
 use gregor::{DateTime, Utc, Month};
 use serial::Serial;
 
@@ -23,10 +24,12 @@ const DISPLAY_I2C_ADDRESS: u8 = 0x70;
 const DISPLAY_BRIGHTNESS: u8 = 1;
 
 #[no_mangle]
-pub extern fn rust_init() {
+pub extern fn main() {
     unsafe {
         bindings::pinMode(LED_PIN, bindings::OUTPUT as u8);
         bindings::pinMode(SQUARE_WAVE_PIN, bindings::INPUT_PULLUP as u8);
+
+        bindings::attachInterrupt(SQUARE_WAVE_PIN, Some(tick), bindings::RISING as i32);
 
         bindings::pinMode(SPI_CHIP_SELECT_PIN, bindings::OUTPUT as u8);
         SPIClass::setMOSI(SPI_MOSI_PIN);
@@ -39,16 +42,46 @@ pub extern fn rust_init() {
         SPIClass::transfer(0x8E);
         SPIClass::transfer(0x20);
         bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::HIGH as u8);
-
-        const HT16K33_OSCILLATOR_ON_COMMAND: u8 = 0x21;
-        const HT16K33_BLINK_COMMAND: u8 = 0x80;
-        const HT16K33_BLINK_DISPLAY_ON: u8 = 0x01;
-        const HT16K33_BLINK_OFF: u8 = 0x00;
-        const HT16K33_BRIGHTNESS_COMMAND: u8 = 0xE0;
-        i2c_write(&[HT16K33_OSCILLATOR_ON_COMMAND]);
-        i2c_write(&[HT16K33_BLINK_COMMAND | HT16K33_BLINK_DISPLAY_ON | HT16K33_BLINK_OFF]);
-        i2c_write(&[HT16K33_BRIGHTNESS_COMMAND | check_ht16k33_brightness(DISPLAY_BRIGHTNESS)]);
     }
+
+    const HT16K33_OSCILLATOR_ON_COMMAND: u8 = 0x21;
+    const HT16K33_BLINK_COMMAND: u8 = 0x80;
+    const HT16K33_BLINK_DISPLAY_ON: u8 = 0x01;
+    const HT16K33_BLINK_OFF: u8 = 0x00;
+    const HT16K33_BRIGHTNESS_COMMAND: u8 = 0xE0;
+    i2c_write(&[HT16K33_OSCILLATOR_ON_COMMAND]);
+    i2c_write(&[HT16K33_BLINK_COMMAND | HT16K33_BLINK_DISPLAY_ON | HT16K33_BLINK_OFF]);
+    i2c_write(&[HT16K33_BRIGHTNESS_COMMAND | check_ht16k33_brightness(DISPLAY_BRIGHTNESS)]);
+
+    loop {
+        if ticked() {
+            update_display()
+        }
+
+        if Serial.readable() {
+            match Serial.read_byte() {
+                b'g' => rtc_print(),
+                b's' => rtc_sync(),
+                _ => {}
+            }
+        }
+    }
+}
+
+static mut TICKED: bool = false;
+
+fn ticked() -> bool {
+    unsafe {
+        let ticked = ptr::read_volatile(&TICKED);
+        if ticked {
+            ptr::write_volatile(&mut TICKED, false);
+        }
+        ticked
+    }
+}
+
+unsafe extern "C" fn tick() {
+    ptr::write_volatile(&mut TICKED, true);
 }
 
 fn check_ht16k33_brightness(brightness: u8) -> u8 {
@@ -107,8 +140,7 @@ fn display_write_digits(digits: [u8; 4], colon: bool) {
     ], colon);
 }
 
-#[no_mangle]
-pub extern fn update_display() {
+fn update_display() {
     let datetime = rtc_get();
     let first = datetime.minute();
     let second = datetime.second();
@@ -120,8 +152,7 @@ pub extern fn update_display() {
     ], true);
 }
 
-#[no_mangle]
-pub extern fn read_int(delimiter: u8) -> u32 {
+fn read_int(delimiter: u8) -> u32 {
     Serial.try_read_int_until(delimiter).unwrap()
 }
 
@@ -182,13 +213,11 @@ fn rtc_set(datetime: &DateTime<Utc>) {
     ])
 }
 
-#[no_mangle]
-pub extern fn rtc_print() {
+fn rtc_print() {
     println!("Current RTC datetime: {:?}", rtc_get());
 }
 
-#[no_mangle]
-pub extern fn rtc_sync() {
+fn rtc_sync() {
     let year = read_int(b'-') as i32;
     let month = Month::from_number(read_int(b'-') as u8).unwrap();
     let day = read_int(b' ') as u8;
