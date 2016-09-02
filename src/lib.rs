@@ -230,7 +230,7 @@ fn rtc_sync() {
 mod std {
     pub use core::*;
     pub mod os {
-        #[allow(non_camel_case_types, dead_code)]
+        #[allow(non_camel_case_types)]
         pub mod raw {
             pub enum c_void {}
             pub type c_uchar = u8;
