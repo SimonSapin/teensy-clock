@@ -1,4 +1,4 @@
-use bindings;
+use teensy3;
 use core::fmt;
 
 
@@ -8,7 +8,7 @@ pub struct Serial;
 impl Serial {
     pub fn readable(self) -> bool {
         unsafe {
-            bindings::usb_serial_available() > 0
+            teensy3::usb_serial_available() > 0
         }
     }
 
@@ -17,7 +17,7 @@ impl Serial {
     }
 
     pub fn try_read_byte(self) -> Result<u8, &'static str> {
-        match unsafe { bindings::usb_serial_getchar() } {
+        match unsafe { teensy3::usb_serial_getchar() } {
             -1 => Err("usb_serial_getchar returned -1"),
             byte => Ok(byte as u8)
         }
@@ -38,7 +38,7 @@ impl Serial {
 
     pub fn write_bytes(self, bytes: &[u8]) -> Result<(), ()> {
         unsafe {
-            if bindings::usb_serial_write(bytes.as_ptr() as *const _, bytes.len() as u32) >= 0 {
+            if teensy3::usb_serial_write(bytes.as_ptr() as *const _, bytes.len() as u32) >= 0 {
                 Ok(())
             } else {
                 Err(())

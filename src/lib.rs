@@ -4,15 +4,16 @@
 extern crate gregor;
 
 #[allow(dead_code, non_snake_case, non_camel_case_types, non_upper_case_globals, improper_ctypes)]
-mod bindings;
+#[path = "bindings.rs"]
+mod teensy3;
 
 #[macro_use]
 mod serial;
 
-use bindings::{SPIClass, Wire};
 use core::ptr;
 use gregor::{DateTime, Utc, Month};
 use serial::Serial;
+use teensy3::{SPIClass, Wire};
 
 const LED_PIN: u8 = 13;
 const SQUARE_WAVE_PIN: u8 = 10;
@@ -26,22 +27,22 @@ const DISPLAY_BRIGHTNESS: u8 = 1;
 #[no_mangle]
 pub extern fn main() {
     unsafe {
-        bindings::pinMode(LED_PIN, bindings::OUTPUT as u8);
-        bindings::pinMode(SQUARE_WAVE_PIN, bindings::INPUT_PULLUP as u8);
+        teensy3::pinMode(LED_PIN, teensy3::OUTPUT as u8);
+        teensy3::pinMode(SQUARE_WAVE_PIN, teensy3::INPUT_PULLUP as u8);
 
-        bindings::attachInterrupt(SQUARE_WAVE_PIN, Some(tick), bindings::RISING as i32);
+        teensy3::attachInterrupt(SQUARE_WAVE_PIN, Some(tick), teensy3::RISING as i32);
 
-        bindings::pinMode(SPI_CHIP_SELECT_PIN, bindings::OUTPUT as u8);
+        teensy3::pinMode(SPI_CHIP_SELECT_PIN, teensy3::OUTPUT as u8);
         SPIClass::setMOSI(SPI_MOSI_PIN);
         SPIClass::setMISO(SPI_MISO_PIN);
         SPIClass::setSCK(SPI_SCK_PIN);
         SPIClass::begin();
-        SPIClass::setBitOrder(bindings::MSBFIRST as u8);
-        SPIClass::setDataMode(bindings::SPI_MODE1 as u8);
-        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::LOW as u8);
+        SPIClass::setBitOrder(teensy3::MSBFIRST as u8);
+        SPIClass::setDataMode(teensy3::SPI_MODE1 as u8);
+        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::LOW as u8);
         SPIClass::transfer(0x8E);
         SPIClass::transfer(0x20);
-        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::HIGH as u8);
+        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::HIGH as u8);
     }
 
     const HT16K33_OSCILLATOR_ON_COMMAND: u8 = 0x21;
@@ -158,23 +159,23 @@ fn read_int(delimiter: u8) -> u32 {
 
 fn spi_read(address: u8, data: &mut [u8]) {
     unsafe {
-        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::LOW as u8);
+        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::LOW as u8);
         SPIClass::transfer(address);
         for byte in data {
             *byte = SPIClass::transfer(0);
         }
-        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::HIGH as u8);
+        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::HIGH as u8);
     }
 }
 
 fn spi_write(address: u8, data: &[u8]) {
     unsafe {
-        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::LOW as u8);
+        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::LOW as u8);
         SPIClass::transfer(address);
         for &byte in data {
             SPIClass::transfer(byte);
         }
-        bindings::digitalWrite(SPI_CHIP_SELECT_PIN, bindings::HIGH as u8);
+        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::HIGH as u8);
     }
 }
 
