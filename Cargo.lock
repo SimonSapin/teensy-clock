@@ -1,0 +1,11 @@
+[root]
+name = "clock"
+version = "0.1.0"
+dependencies = [
+ "gregor 0.3.0",
+]
+
+[[package]]
+name = "gregor"
+version = "0.3.0"
+
