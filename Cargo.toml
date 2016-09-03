@@ -7,4 +7,4 @@ authors = ["Simon Sapin <simon.sapin@exyr.org>"]
 crate-type = ["staticlib"]
 
 [dependencies]
-gregor = { path = "../gregor" }
+gregor = "0.3"

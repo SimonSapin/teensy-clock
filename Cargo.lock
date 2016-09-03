@@ -2,10 +2,13 @@
 name = "clock"
 version = "0.1.0"
 dependencies = [
- "gregor 0.3.0",
+ "gregor 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "gregor"
 version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
+[metadata]
+"checksum gregor 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "6f60d70ced77bf81a74eb6e404ff21916ddae3c549d955637e81a51875bad42f"
