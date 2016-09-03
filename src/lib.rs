@@ -19,16 +19,13 @@ use serial::Serial;
 use teensy3::Wire;
 
 const SQUARE_WAVE_PIN: u8 = 10;
-const LED_PIN: u8 = 13;
 const DISPLAY_I2C_ADDRESS: u8 = 0x70;
 const DISPLAY_BRIGHTNESS: u8 = 1;
 
 #[no_mangle]
 pub extern fn main() {
     unsafe {
-        teensy3::pinMode(LED_PIN, teensy3::OUTPUT as u8);
         teensy3::pinMode(SQUARE_WAVE_PIN, teensy3::INPUT_PULLUP as u8);
-
         teensy3::attachInterrupt(SQUARE_WAVE_PIN, Some(tick), teensy3::RISING as i32);
     }
 
@@ -50,8 +47,18 @@ pub extern fn main() {
 
         if Serial.readable() {
             match Serial.read_byte() {
-                b'g' => rtc_print(),
-                b's' => rtc_sync(),
+                b'g' => {
+                    println!("Current RTC datetime: {:?}", DS3234.get());
+                }
+                b's' => {
+                    let year = read_int(b'-') as i32;
+                    let month = Month::from_number(read_int(b'-') as u8).unwrap();
+                    let day = read_int(b' ') as u8;
+                    let hour = read_int(b':') as u8;
+                    let minute = read_int(b':') as u8;
+                    let second = read_int(b'\n') as u8;
+                    DS3234.set(&DateTime::new(Utc, year, month, day, hour, minute, second))
+                }
                 _ => {}
             }
         }
@@ -146,20 +153,6 @@ fn read_int(delimiter: u8) -> u32 {
     Serial.try_read_int_until(delimiter).unwrap()
 }
 
-
-fn rtc_print() {
-    println!("Current RTC datetime: {:?}", DS3234.get());
-}
-
-fn rtc_sync() {
-    let year = read_int(b'-') as i32;
-    let month = Month::from_number(read_int(b'-') as u8).unwrap();
-    let day = read_int(b' ') as u8;
-    let hour = read_int(b':') as u8;
-    let minute = read_int(b':') as u8;
-    let second = read_int(b'\n') as u8;
-    DS3234.set(&DateTime::new(Utc, year, month, day, hour, minute, second))
-}
 
 mod std {
     pub use core::*;
