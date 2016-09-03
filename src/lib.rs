@@ -10,17 +10,16 @@ mod teensy3;
 #[macro_use]
 mod serial;
 
+mod ds3234;
+
 use core::ptr;
+use ds3234::DS3234;
 use gregor::{DateTime, Utc, Month};
 use serial::Serial;
-use teensy3::{SPIClass, Wire};
+use teensy3::Wire;
 
-const LED_PIN: u8 = 13;
 const SQUARE_WAVE_PIN: u8 = 10;
-const SPI_CHIP_SELECT_PIN: u8 = 6;
-const SPI_MOSI_PIN: u8 = 7;
-const SPI_MISO_PIN: u8 = 8;
-const SPI_SCK_PIN: u8 = 14;
+const LED_PIN: u8 = 13;
 const DISPLAY_I2C_ADDRESS: u8 = 0x70;
 const DISPLAY_BRIGHTNESS: u8 = 1;
 
@@ -31,19 +30,9 @@ pub extern fn main() {
         teensy3::pinMode(SQUARE_WAVE_PIN, teensy3::INPUT_PULLUP as u8);
 
         teensy3::attachInterrupt(SQUARE_WAVE_PIN, Some(tick), teensy3::RISING as i32);
-
-        teensy3::pinMode(SPI_CHIP_SELECT_PIN, teensy3::OUTPUT as u8);
-        SPIClass::setMOSI(SPI_MOSI_PIN);
-        SPIClass::setMISO(SPI_MISO_PIN);
-        SPIClass::setSCK(SPI_SCK_PIN);
-        SPIClass::begin();
-        SPIClass::setBitOrder(teensy3::MSBFIRST as u8);
-        SPIClass::setDataMode(teensy3::SPI_MODE1 as u8);
-        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::LOW as u8);
-        SPIClass::transfer(0x8E);
-        SPIClass::transfer(0x20);
-        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::HIGH as u8);
     }
+
+    DS3234.init();
 
     const HT16K33_OSCILLATOR_ON_COMMAND: u8 = 0x21;
     const HT16K33_BLINK_COMMAND: u8 = 0x80;
@@ -142,7 +131,7 @@ fn display_write_digits(digits: [u8; 4], colon: bool) {
 }
 
 fn update_display() {
-    let datetime = rtc_get();
+    let datetime = DS3234.get();
     let first = datetime.minute();
     let second = datetime.second();
     display_write_digits([
@@ -157,65 +146,9 @@ fn read_int(delimiter: u8) -> u32 {
     Serial.try_read_int_until(delimiter).unwrap()
 }
 
-fn spi_read(address: u8, data: &mut [u8]) {
-    unsafe {
-        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::LOW as u8);
-        SPIClass::transfer(address);
-        for byte in data {
-            *byte = SPIClass::transfer(0);
-        }
-        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::HIGH as u8);
-    }
-}
-
-fn spi_write(address: u8, data: &[u8]) {
-    unsafe {
-        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::LOW as u8);
-        SPIClass::transfer(address);
-        for &byte in data {
-            SPIClass::transfer(byte);
-        }
-        teensy3::digitalWrite(SPI_CHIP_SELECT_PIN, teensy3::HIGH as u8);
-    }
-}
-
-/// Binary-Coded Decimal
-fn bcd_decode(n: u8) -> u8 {
-    (n >> 4) * 10 + (n & 0xF)
-}
-
-fn bcd_encode(n: u8) -> u8 {
-    assert!(n < 100);
-    (n / 10) << 4 | (n % 10)
-}
-
-fn rtc_get() -> DateTime<Utc> {
-    let mut data = [0, 0, 0, 0, 0, 0, 0];
-    spi_read(0x00, &mut data);
-    let second = bcd_decode(data[0]);
-    let minute = bcd_decode(data[1]);
-    let hour = bcd_decode(data[2]);
-    // data[3] is the day of the week, but we don’t rely on the RTC for that.
-    let day = bcd_decode(data[4]);
-    let month = Month::from_number(bcd_decode(data[5])).unwrap();
-    let year = 2000 + i32::from(bcd_decode(data[6]));
-    DateTime::new(Utc, year, month, day, hour, minute, second)
-}
-
-fn rtc_set(datetime: &DateTime<Utc>) {
-    spi_write(0x80, &[
-        bcd_encode(datetime.second()),
-        bcd_encode(datetime.minute()),
-        bcd_encode(datetime.hour()),
-        0,  // Day of the week, unused
-        bcd_encode(datetime.day()),
-        bcd_encode(datetime.month().to_number()),
-        bcd_encode((datetime.year() - 2000) as u8),
-    ])
-}
 
 fn rtc_print() {
-    println!("Current RTC datetime: {:?}", rtc_get());
+    println!("Current RTC datetime: {:?}", DS3234.get());
 }
 
 fn rtc_sync() {
@@ -225,7 +158,7 @@ fn rtc_sync() {
     let hour = read_int(b':') as u8;
     let minute = read_int(b':') as u8;
     let second = read_int(b'\n') as u8;
-    rtc_set(&DateTime::new(Utc, year, month, day, hour, minute, second))
+    DS3234.set(&DateTime::new(Utc, year, month, day, hour, minute, second))
 }
 
 mod std {
