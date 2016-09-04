@@ -12,27 +12,22 @@ mod serial;
 
 mod ds3234;
 mod ht16k33;
+mod square_wave;
 
-use core::ptr;
 use ds3234::RTC;
 use gregor::{DateTime, Utc, Month};
 use ht16k33::{Display, Brightness};
 use serial::Serial;
-
-const SQUARE_WAVE_PIN: u8 = 10;
+use square_wave::SquareWave;
 
 #[no_mangle]
 pub extern fn main() {
-    unsafe {
-        teensy3::pinMode(SQUARE_WAVE_PIN, teensy3::INPUT_PULLUP as u8);
-        teensy3::attachInterrupt(SQUARE_WAVE_PIN, Some(tick), teensy3::RISING as i32);
-    }
-
     RTC.init();
     Display.init(Brightness::_1);
+    SquareWave.init();
 
     loop {
-        if ticked() {
+        if SquareWave.ticked() {
             let datetime = RTC.get();
             let first = datetime.minute();
             let second = datetime.second();
@@ -64,26 +59,9 @@ pub extern fn main() {
     }
 }
 
-static mut TICKED: bool = false;
-
-fn ticked() -> bool {
-    unsafe {
-        let ticked = ptr::read_volatile(&TICKED);
-        if ticked {
-            ptr::write_volatile(&mut TICKED, false);
-        }
-        ticked
-    }
-}
-
-unsafe extern "C" fn tick() {
-    ptr::write_volatile(&mut TICKED, true);
-}
-
 fn read_int(delimiter: u8) -> u32 {
     Serial.try_read_int_until(delimiter).unwrap()
 }
-
 
 mod std {
     pub use core::*;
