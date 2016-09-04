@@ -11,9 +11,9 @@ const CONTROL_REGISTER_ADDRESS: u8 = 0x0E;
 const CONTROL_REGISTER_CONVERT_TEMPERATURE: u8 = 0x20;
 
 #[derive(Copy, Clone)]
-pub struct DS3234;
+pub struct RTC;
 
-impl DS3234 {
+impl RTC {
     pub fn init(self) {
         unsafe {
             teensy3::pinMode(SPI_CHIP_SELECT_PIN, teensy3::OUTPUT as u8);

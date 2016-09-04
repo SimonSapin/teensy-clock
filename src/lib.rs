@@ -13,7 +13,7 @@ mod serial;
 mod ds3234;
 
 use core::ptr;
-use ds3234::DS3234;
+use ds3234::RTC;
 use gregor::{DateTime, Utc, Month};
 use serial::Serial;
 use teensy3::Wire;
@@ -29,7 +29,7 @@ pub extern fn main() {
         teensy3::attachInterrupt(SQUARE_WAVE_PIN, Some(tick), teensy3::RISING as i32);
     }
 
-    DS3234.init();
+    RTC.init();
 
     const HT16K33_OSCILLATOR_ON_COMMAND: u8 = 0x21;
     const HT16K33_BLINK_COMMAND: u8 = 0x80;
@@ -42,13 +42,21 @@ pub extern fn main() {
 
     loop {
         if ticked() {
-            update_display()
+            let datetime = RTC.get();
+            let first = datetime.minute();
+            let second = datetime.second();
+            display_write_digits([
+                first / 10,
+                first % 10,
+                second / 10,
+                second % 10,
+            ], true);
         }
 
         if Serial.readable() {
             match Serial.read_byte() {
                 b'g' => {
-                    println!("Current RTC datetime: {:?}", DS3234.get());
+                    println!("Current RTC datetime: {:?}", RTC.get());
                 }
                 b's' => {
                     let year = read_int(b'-') as i32;
@@ -57,7 +65,7 @@ pub extern fn main() {
                     let hour = read_int(b':') as u8;
                     let minute = read_int(b':') as u8;
                     let second = read_int(b'\n') as u8;
-                    DS3234.set(&DateTime::new(Utc, year, month, day, hour, minute, second))
+                    RTC.set(&DateTime::new(Utc, year, month, day, hour, minute, second))
                 }
                 _ => {}
             }
@@ -135,18 +143,6 @@ fn display_write_digits(digits: [u8; 4], colon: bool) {
         ADAFRUIT_7_SEGMENTS_DIGITS[digits[2] as usize],
         ADAFRUIT_7_SEGMENTS_DIGITS[digits[3] as usize],
     ], colon);
-}
-
-fn update_display() {
-    let datetime = DS3234.get();
-    let first = datetime.minute();
-    let second = datetime.second();
-    display_write_digits([
-        first / 10,
-        first % 10,
-        second / 10,
-        second % 10,
-    ], true);
 }
 
 fn read_int(delimiter: u8) -> u32 {
