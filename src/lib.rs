@@ -22,6 +22,23 @@ use square_wave::SquareWave;
 
 #[no_mangle]
 pub extern fn main() {
+    if false {
+        clock_main()
+    }
+
+    unsafe {
+        const LED: u8 = 13;
+        teensy3::pinMode(LED, teensy3::OUTPUT as u8);
+        loop {
+            teensy3::digitalWrite(LED, teensy3::HIGH as u8);
+            teensy3::delay(200);
+            teensy3::digitalWrite(LED, teensy3::LOW as u8);
+            teensy3::delay(200);
+        }
+    }
+}
+
+fn clock_main() {
     RTC.init();
     Display.init(Brightness::_1);
     SquareWave.init();
