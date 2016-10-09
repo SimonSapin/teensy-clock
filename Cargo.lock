@@ -3,7 +3,7 @@ name = "clock"
 version = "0.1.0"
 dependencies = [
  "gregor 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "teensy3 0.1.0",
+ "teensy3 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -13,7 +13,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "teensy3"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "teensy3-sys 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "teensy3-sys"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [metadata]
 "checksum gregor 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "6f60d70ced77bf81a74eb6e404ff21916ddae3c549d955637e81a51875bad42f"
+"checksum teensy3 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)" = "c44a9c182dc3c0a3deaa18e075a073de40629af34855529b30b3565c871d1a14"
+"checksum teensy3-sys 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "89d4d9e2b288386b21ec775e783bf1adf81ec2a4cbf777bb05f2b4cc22fbd267"

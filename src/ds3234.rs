@@ -1,5 +1,6 @@
 use gregor::{DateTime, Utc, Month};
-use teensy3::{self, SPIClass};
+use teensy3::bindings as teensy3;
+use teensy3::bindings::SPIClass;
 
 const SPI_CHIP_SELECT_PIN: u8 = 6;
 const SPI_MOSI_PIN: u8 = 7;

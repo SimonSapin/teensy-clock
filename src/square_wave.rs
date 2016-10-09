@@ -1,5 +1,5 @@
 use core::ptr;
-use teensy3;
+use teensy3::bindings as teensy3;
 
 const SQUARE_WAVE_PIN: u8 = 10;
 

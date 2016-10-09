@@ -1,7 +1,7 @@
 //! Using Adafruit’s  0.56" 7-Segment LED Backpack
 //! https://learn.adafruit.com/adafruit-led-backpack/0-dot-56-seven-segment-backpack
 
-use teensy3::Wire;
+use teensy3::bindings::Wire;
 
 #[derive(Copy, Clone)]
 pub struct Display;

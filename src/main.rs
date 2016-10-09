@@ -1,12 +1,8 @@
-#![feature(lang_items)]
 #![no_std]
 #![no_main]
 
 extern crate gregor;
-extern crate teensy3;
-
-#[macro_use]
-mod serial;
+#[macro_use] extern crate teensy3;
 
 mod ds3234;
 mod ht16k33;
@@ -15,8 +11,8 @@ mod square_wave;
 use ds3234::RTC;
 use gregor::{DateTime, Utc, Month};
 use ht16k33::{Display, Brightness};
-use serial::Serial;
 use square_wave::SquareWave;
+use teensy3::serial::Serial;
 
 #[no_mangle]
 pub extern fn main() -> ! {
@@ -58,14 +54,14 @@ pub extern fn main() -> ! {
 }
 
 fn read_int(delimiter: u8) -> u32 {
-    Serial.try_read_int_until(delimiter).unwrap()
+    let mut result = 0;
+    loop {
+        let byte = Serial.try_read_byte().unwrap();
+        if byte == delimiter {
+            return result
+        }
+        let digit = (byte as char).to_digit(10).expect("expected a decimal digit");
+        result *= 10;
+        result += digit;
+    }
 }
-
-#[lang = "panic_fmt"]
-pub extern fn rust_begin_panic(msg: core::fmt::Arguments, file: &'static str, line: u32) -> ! {
-    println!("Panic at {}:{}, {}", file, line, msg);
-    loop {}
-}
-
-#[lang = "eh_personality"]
-pub extern fn rust_eh_personality() {}

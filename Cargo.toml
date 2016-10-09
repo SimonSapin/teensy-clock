@@ -5,4 +5,4 @@ authors = ["Simon Sapin <simon.sapin@exyr.org>"]
 
 [dependencies]
 gregor = "0.3"
-teensy3 = { path = "teensy3-rs" }
+teensy3 = "0.1"
