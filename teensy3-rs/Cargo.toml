@@ -1,8 +1,0 @@
-[package]
-name = "teensy3"
-version = "0.1.0"
-authors = ["Paul Stoffregen"]
-build = "build.rs"
-
-[lib]
-path = "lib.rs"
