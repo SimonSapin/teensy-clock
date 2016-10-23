@@ -41,33 +41,46 @@ pub extern fn main() -> ! {
         }
 
         if Serial.readable() {
-            match Serial.read_byte() {
-                b'g' => {
+            match Serial.try_read_byte() {
+                Ok(b'g') => {
                     println!("Current RTC datetime: {:?}", RTC.get());
                 }
-                b's' => {
-                    let year = read_int(b'-') as i32;
-                    let month = Month::from_number(read_int(b'-') as u8).unwrap();
-                    let day = read_int(b' ') as u8;
-                    let hour = read_int(b':') as u8;
-                    let minute = read_int(b':') as u8;
-                    let second = read_int(b'\n') as u8;
-                    RTC.set(&DateTime::new(Utc, year, month, day, hour, minute, second))
+                Ok(b's') => {
+                    match read_datetime() {
+                        Ok(datetime) => {
+                            println!("RTC set to {:?}", datetime);
+                            RTC.set(&datetime)
+                        }
+                        Err(err) => {
+                            println!("Error reading datetime from USB serial: {}", err);
+                        }
+                    }
                 }
+                // Ignore unexpected bytes or reading errors
                 _ => {}
             }
         }
     }
 }
 
-fn read_int(delimiter: u8) -> u32 {
+fn read_datetime() -> Result<DateTime<Utc>, &'static str> {
+    let year = try!(read_int(&[b'-'])) as i32;
+    let month = Month::from_number(try!(read_int(&[b'-'])) as u8).unwrap();
+    let day = try!(read_int(&[b' '])) as u8;
+    let hour = try!(read_int(&[b':'])) as u8;
+    let minute = try!(read_int(&[b':'])) as u8;
+    let second = try!(read_int(&[b'\n', b'\r'])) as u8;
+    Ok(DateTime::new(Utc, year, month, day, hour, minute, second))
+}
+
+fn read_int(delimiters: &[u8]) -> Result<u32, &'static str> {
     let mut result = 0;
     loop {
-        let byte = Serial.try_read_byte().unwrap();
-        if byte == delimiter {
-            return result
+        let byte = try!(Serial.try_read_byte());
+        if delimiters.contains(&byte) {
+            return Ok(result)
         }
-        let digit = (byte as char).to_digit(10).expect("expected a decimal digit");
+        let digit = try!((byte as char).to_digit(10).ok_or("expected a decimal digit"));
         result *= 10;
         result += digit;
     }
