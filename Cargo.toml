@@ -5,4 +5,7 @@ authors = ["Simon Sapin <simon.sapin@exyr.org>"]
 
 [dependencies]
 gregor = "0.3"
-teensy3 = "0.1"
+
+# `path` to a local copy with `rust_begin_panic` commented out.
+# See https://github.com/jamesmunns/teensy3-rs/issues/16
+teensy3 = { version = "0.1", path = "../teensy3-rs/teensy3" }

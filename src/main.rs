@@ -1,3 +1,4 @@
+#![feature(lang_items)]
 #![no_std]
 #![no_main]
 
@@ -13,6 +14,12 @@ use gregor::{DateTime, Utc, Month};
 use ht16k33::{Display, Brightness};
 use square_wave::SquareWave;
 use teensy3::serial::Serial;
+
+#[lang = "panic_fmt"]
+pub extern fn rust_begin_panic(msg: core::fmt::Arguments, file: &'static str, line: u32) -> ! {
+    println!("Panic at {}:{}, {}", file, line, msg);
+    loop {}
+}
 
 #[no_mangle]
 pub extern fn main() -> ! {
