@@ -34,15 +34,17 @@ pub extern fn main() -> ! {
     const LED: u8 = 13;
     loop {
         if SquareWave.ticked() {
-            let datetime = RTC.get();
-            let first = datetime.minute();
-            let second = datetime.second();
+            let utc = RTC.get();
+            let local = utc.convert_unambiguous_time_zone(gregor::CentralEurope);
+            let first = local.hour();
+            let second = local.minute();
+            let colon = local.second() % 2 == 0;
             Display.write_digits([
                 first / 10,
                 first % 10,
                 second / 10,
                 second % 10,
-            ], true);
+            ], colon);
 //            unsafe {
 //                bindings::digitalWrite(LED, bindings::HIGH as u8);
 //                bindings::delay(20);
