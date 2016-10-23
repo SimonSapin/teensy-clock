@@ -13,6 +13,7 @@ use ds3234::RTC;
 use gregor::{DateTime, Utc, Month};
 use ht16k33::{Display, Brightness};
 use square_wave::SquareWave;
+use teensy3::bindings;
 use teensy3::serial::Serial;
 
 #[lang = "panic_fmt"]
@@ -23,10 +24,14 @@ pub extern fn rust_begin_panic(msg: core::fmt::Arguments, file: &'static str, li
 
 #[no_mangle]
 pub extern fn main() -> ! {
+    unsafe {
+        bindings::pinMode(LED, bindings::OUTPUT as u8);
+        bindings::delay(100);
+    }
     RTC.init();
-    Display.init(Brightness::_1);
+    Display.init(Brightness::_0);
     SquareWave.init();
-
+    const LED: u8 = 13;
     loop {
         if SquareWave.ticked() {
             let datetime = RTC.get();
@@ -38,6 +43,11 @@ pub extern fn main() -> ! {
                 second / 10,
                 second % 10,
             ], true);
+//            unsafe {
+//                bindings::digitalWrite(LED, bindings::HIGH as u8);
+//                bindings::delay(20);
+//                bindings::digitalWrite(LED, bindings::LOW as u8);
+//            }
         }
 
         if Serial.readable() {
