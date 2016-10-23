@@ -10,10 +10,10 @@
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
  *
- * 1. The above copyright notice and this permission notice shall be 
+ * 1. The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
  *
- * 2. If the Software is incorporated into a build system that allows 
+ * 2. If the Software is incorporated into a build system that allows
  * selection among a list of target devices, then similar target
  * devices manufactured by PJRC.COM must be included in the list of
  * target devices and selectable in the same manner.
@@ -58,12 +58,18 @@ SECTIONS
 		__init_array_end = .;
 	} > FLASH = 0xFF
 
+/*
+ * TODO(@jamesmunns): I added the "+ 128" in this section because I was having
+ *   problems with overlapping sections with arm-none-eabi-gcc 4.9.3. Simon did
+ *   not have this problem with GCC 6.x.x, so its either a bug, or something odd.
+ *   This should be investigated. Sorry for the hack.
+ */
 	.ARM.exidx : {
 		__exidx_start = .;
 		*(.ARM.exidx* .gnu.linkonce.armexidx.*)
 		__exidx_end = .;
+        _etext = . + 128;
 	} > FLASH
-	_etext = .;
 
 	.usbdescriptortable (NOLOAD) : {
 		/* . = ORIGIN(RAM); */
@@ -83,11 +89,11 @@ SECTIONS
 
 	.data : AT (_etext) {
 		. = ALIGN(4);
-		_sdata = .; 
+		_sdata = .;
 		*(.fastrun*)
 		*(.data*)
 		. = ALIGN(4);
-		_edata = .; 
+		_edata = .;
 	} > RAM
 
 	.noinit (NOLOAD) : {
