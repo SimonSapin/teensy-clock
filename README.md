@@ -160,7 +160,7 @@ Here are the parts I ended up using:
   (GPU not required for this clock.)
 * [“Jumper lead” wires](https://shop.pimoroni.com/collections/prototyping/products/jumper-lead-selection).
   They’re designed for use with a breadboard, but are still very convenient for this:
-  the come insulated, in various lengths, with pre-stripped ends, and with solid (not stranded)
+  they come insulated, in various lengths, with pre-stripped ends, and with solid (not stranded)
   core so that they keep their shape after bending.
   Once soldered they provide fairly good mechanical connection,
   which means this project doesn’t need a “main” board since the whole thing is rather light.
