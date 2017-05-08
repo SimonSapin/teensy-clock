@@ -3,7 +3,7 @@ name = "clock"
 version = "0.1.0"
 dependencies = [
  "gregor 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "teensy3 0.1.2",
+ "teensy3 0.1.3",
 ]
 
 [[package]]
@@ -13,7 +13,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "teensy3"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
  "teensy3-sys 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]

@@ -17,10 +17,13 @@ use teensy3::bindings;
 use teensy3::serial::Serial;
 
 #[lang = "panic_fmt"]
-pub extern fn rust_begin_panic(msg: core::fmt::Arguments, file: &'static str, line: u32) -> ! {
+#[no_mangle]
+pub extern fn rust_begin_unwind(msg: core::fmt::Arguments, file: &'static str, line: u32) -> ! {
     println!("Panic at {}:{}, {}", file, line, msg);
     loop {}
 }
+
+const LED: u8 = 13;
 
 #[no_mangle]
 pub extern fn main() -> ! {
@@ -31,25 +34,10 @@ pub extern fn main() -> ! {
     RTC.init();
     Display.init(Brightness::_0);
     SquareWave.init();
-    const LED: u8 = 13;
+    tick();
     loop {
         if SquareWave.ticked() {
-            let utc = RTC.get();
-            let local = utc.convert_unambiguous_time_zone(gregor::CentralEurope);
-            let first = local.hour();
-            let second = local.minute();
-            let colon = local.second() % 2 == 0;
-            Display.write_digits([
-                first / 10,
-                first % 10,
-                second / 10,
-                second % 10,
-            ], colon);
-//            unsafe {
-//                bindings::digitalWrite(LED, bindings::HIGH as u8);
-//                bindings::delay(20);
-//                bindings::digitalWrite(LED, bindings::LOW as u8);
-//            }
+            tick()
         }
 
         if Serial.readable() {
@@ -73,6 +61,25 @@ pub extern fn main() -> ! {
             }
         }
     }
+}
+
+fn tick() {
+    let utc = RTC.get();
+    let local = utc.convert_unambiguous_time_zone(gregor::CentralEurope);
+    let first = local.hour();
+    let second = local.minute();
+    let colon = local.second() % 2 == 0;
+    Display.write_digits([
+        first / 10,
+        first % 10,
+        second / 10,
+        second % 10,
+    ], colon);
+//    unsafe {
+//        bindings::digitalWrite(LED, bindings::HIGH as u8);
+//        bindings::delay(20);
+//        bindings::digitalWrite(LED, bindings::LOW as u8);
+//    }
 }
 
 fn read_datetime() -> Result<DateTime<Utc>, &'static str> {
