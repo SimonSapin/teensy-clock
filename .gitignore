@@ -1,6 +1,0 @@
-target
-*.o
-*.d
-*.elf
-*.hex
-*.a
